@@ -26,15 +26,15 @@ function create(){
 		});
     }
     
-    var vibration_btn = this.add.sprite(200, 200, 'button_blank').setInteractive();
+    var vibration_btn = this.add.sprite(200, 200, 'vibrateBtn').setInteractive();
     
-    var flash_btn = this.add.sprite(500, 200, 'button_blank').setInteractive();
+    var flash_btn = this.add.sprite(500, 200, 'lightBtn').setInteractive();
     flash_btn.tint = 0xff00ff;
 
     colors = [0xFDEC9E, 0xE9A43C, 0xB77A29, 0xBEAF18, 0x799D31, 0x799D31, 0x118800];
 
  	vibration_btn.on('pointerdown', function (pointer) {
-       	this.tint = colors[0];
+       	this.tint = colors[4];
        	try{
        		navigator.vibrate(60000);
        	}
