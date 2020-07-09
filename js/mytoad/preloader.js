@@ -5,6 +5,8 @@ function preload (){
     this.load.image("lightBtn", "assets/mytoad/images/lightBtn.png");
     this.load.image("vibrateBtn", "assets/mytoad/images/vibrateBtn.png");
     
+    this.load.image("logo", "assets/mytoad/images/logo.png");
+    
     this.load.spritesheet('logo_spritesheet', 'assets/mytoad/images/logoSprite.png', { frameWidth: 10368 / 36, frameHeight: 384});
 
     this.load.audio('note1', 'assets/mytoad/audio/note1.mp3');
