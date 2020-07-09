@@ -3,8 +3,7 @@ function create(){
 	logoBtns = [];
 	
 	var debug_text = this.add.text(100, 900, 'debug').setFont('32px Impact').setColor('#ff0000').setAlign('center');
-	window.addEventListener("devicemotion", readVisherAccel, true);
-	
+
     var oneTouch = [
     	this.sound.add('note1'),
     	this.sound.add('note2'),
@@ -73,28 +72,12 @@ function create(){
     });
 
     plugIns();
+	window.addEventListener("devicemotion", readVisherAccel, true);	
 }
-
-/*
-function playNote(_note){
-	var key = _note.texture.key + octave;
-	var keyPlace = notes.indexOf(_note.texture.key);
-	
-	_note.setTint(colors[keyPlace]);
-	
-	if (stickState == 'btn_mallet') game.sound.playAudioSprite('gyilSpriteMallet', key);
-}
-
-function toggleStick(_this){
-	stickStates[k].clearTint();
-	stickState = _this.texture.key;
-	_this.setTint(colors[1]);
-}
-*/
 
 function readVisherAccel(event){
 	debug_text.text = Math.round(event.accelerationIncludingGravity.x * 100) / 100;
-	logoBtns[1].angle = event.accelerationIncludingGravity.x * 3;
+	//logoBtns[1].angle = event.accelerationIncludingGravity.x * 3;
 }
 
 function plugIns(){
