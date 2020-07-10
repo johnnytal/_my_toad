@@ -5,6 +5,13 @@ function create(){
 	logoBtns = [];
 	logos = [];
 	
+	huHaReset = true;
+	
+	MIN_ACCEL_F = 0.8;
+	MIN_ACCEL_B = 0.35;
+	lastAction = '';
+	lastAccel = 0;
+	
     colors = [0xFDEC9E, 0xE9A43C, 0xB77A29, 0xBEAF18, 0x799D31, 0x799D31, 0x118800];
     colorsHex = ['#FDEC9E', '#E9A43C', '#B77A29', '#BEAF18', '#799D31', '#799D31', '#118800'];
 
@@ -18,6 +25,9 @@ function create(){
     
     huSound = this.sound.add('hu');
     haSound = this.sound.add('ha');
+    
+    frontSfx = this.sound.add('front');
+    backSfx = this.sound.add('back');
 	
 	for (x = 0; x < btn_n; x++){
 		logo = this.add.sprite(130 + x*225, HEIGHT / 2 - 350, 'logo').setInteractive();
@@ -91,20 +101,52 @@ function create(){
 }
 
 function readVisherAccel(event){
-	debug_text.text = Math.round(event.accelerationIncludingGravity.x * 100) / 100;
+	var gravity = event.accelerationIncludingGravity.x;
 
-	logoBtns[1].angle = event.accelerationIncludingGravity.x * 3;
+	logoBtns[1].angle = gravity * 3;
 	
-	if (event.accelerationIncludingGravity.x < -4){
+	if (gravity < 1 && gravity > -1){
+		huHaReset = true;
+	}
+	
+	if (gravity < -5 && huHaReset){
 		if (!huSound.isPlaying){
 			huSound.play();
+			huHaReset = false;
 		}
 	}
-	else if (event.accelerationIncludingGravity.x > 4){
+	else if (gravity > 5 && huHaReset){
 		if (!haSound.isPlaying){
 			haSound.play();
+			huHaReset = false;
 		}
 	}
+	
+	var aveAccel = (
+		event.accelerationIncludingGravity.x + 
+		event.accelerationIncludingGravity.y +
+		event.accelerationIncludingGravity.z
+	) / 3;
+	
+	if (!frontSfx.isPlaying && !backSfx.isPlaying){
+		if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F){ 
+			if (lastAction != 'FRONT'){
+				frontSfx.play();
+				lastAction = 'FRONT';
+			}
+		}
+		
+		else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B){	
+			if (lastAction != 'BACK'){
+				backSfx.play();
+				lastAction = 'BACK';
+			}
+		}
+	}
+	
+	lastAccel = aveAccel;
+	
+	debug_text.text = 'visher: ' + Math.round(gravity * 100) / 100 + ' | shaker: ' + aveAccel;
 }
 
 function plugIns(){

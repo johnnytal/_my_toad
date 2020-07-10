@@ -15,6 +15,9 @@ function preload (){
     
     this.load.audio('hu', 'assets/mytoad/audio/hu.mp3');
     this.load.audio('ha', 'assets/mytoad/audio/ha.mp3');
+    
+    this.load.audio('front', 'assets/mytoad/audio/front.mp3');
+    this.load.audio('back', 'assets/mytoad/audio/back.mp3');
 }
 
 function progressBar(_this){
