@@ -7,11 +7,14 @@ function preload (){
     
     this.load.image("logo", "assets/mytoad/images/logo.png");
     
-    this.load.spritesheet('logo_spritesheet', 'assets/mytoad/images/logoSprite.png', { frameWidth: 10368 / 36, frameHeight: 384});
+    this.load.image('logo_spritesheet', 'assets/mytoad/images/logoSprite.png');
 
     this.load.audio('note1', 'assets/mytoad/audio/note1.mp3');
     this.load.audio('note2', 'assets/mytoad/audio/note2.mp3');
     this.load.audio('note3', 'assets/mytoad/audio/note3.mp3');
+    
+    this.load.audio('hu', 'assets/mytoad/audio/hu.mp3');
+    this.load.audio('ha', 'assets/mytoad/audio/ha.mp3');
 }
 
 function progressBar(_this){

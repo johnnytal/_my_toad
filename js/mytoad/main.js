@@ -3,8 +3,10 @@ function create(){
 		
 	btn_n = 3;
 	logoBtns = [];
+	logos = [];
 	
     colors = [0xFDEC9E, 0xE9A43C, 0xB77A29, 0xBEAF18, 0x799D31, 0x799D31, 0x118800];
+    colorsHex = ['#FDEC9E', '#E9A43C', '#B77A29', '#BEAF18', '#799D31', '#799D31', '#118800'];
 
 	debug_text = this.add.text(100, 50, 'debug').setFont('32px Impact').setColor('#ff0000').setAlign('center');
 
@@ -13,18 +15,22 @@ function create(){
     	this.sound.add('note2'),
     	this.sound.add('note3')
     ];
+    
+    huSound = this.sound.add('hu');
+    haSound = this.sound.add('ha');
 	
 	for (x = 0; x < btn_n; x++){
 		logo = this.add.sprite(130 + x*225, HEIGHT / 2 - 350, 'logo').setInteractive();
 		logo.setScale(.2, .2);
 		logo.tint = colors[x];
+		logos.push(logo);
+		
 	 	logo.on('pointerdown', function (pointer) {
-			_this.cameras.main.setBackgroundColor('#0000ff');
+			_this.cameras.main.setBackgroundColor(colorsHex[logos.indexOf(this)]);
 	    });
 		
     	var logo_btn = this.add.sprite(130 + x*225, HEIGHT / 2 - 100, 'logo_spritesheet').setInteractive();
     	logo_btn.setScale(.8, .8);
-    	logo_btn.setFrame(x * 4);
     	logoBtns.push(logo_btn);
 	    	
 	 	logo_btn.on('pointerdown', function (pointer) {
@@ -86,7 +92,19 @@ function create(){
 
 function readVisherAccel(event){
 	debug_text.text = Math.round(event.accelerationIncludingGravity.x * 100) / 100;
+
 	logoBtns[1].angle = event.accelerationIncludingGravity.x * 3;
+	
+	if (event.accelerationIncludingGravity.x < -4){
+		if (!huSound.isPlaying){
+			huSound.play();
+		}
+	}
+	else if (event.accelerationIncludingGravity.x > 4){
+		if (!haSound.isPlaying){
+			haSound.play();
+		}
+	}
 }
 
 function plugIns(){
