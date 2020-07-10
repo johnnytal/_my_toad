@@ -7,10 +7,13 @@ function create(){
 	
 	huHaReset = true;
 	
-	MIN_ACCEL_F = 0.8;
-	MIN_ACCEL_B = 0.35;
+	MIN_ACCEL_F = 0.9;
+	MIN_ACCEL_B = 0.4;
 	lastAction = '';
 	lastAccel = 0;
+	
+	VISHER_ON = true;
+	SHAKER_ON = true;
 	
     colors = [0xFDEC9E, 0xE9A43C, 0xB77A29, 0xBEAF18, 0x799D31, 0x799D31, 0x118800];
     colorsHex = ['#FDEC9E', '#E9A43C', '#B77A29', '#BEAF18', '#799D31', '#799D31', '#118800'];
@@ -53,14 +56,17 @@ function create(){
     }
     
     var vibration_btn = this.add.sprite(200, 950, 'vibrateBtn').setInteractive();
+    vibration_btn.setScale(0.75, 0.75);
     
     var flash_btn = this.add.sprite(500, 950, 'lightBtn').setInteractive();
+    flash_btn.setScale(0.8, 0.8);
+    
     flash_btn.tint = 0xff00ff;
 
  	vibration_btn.on('pointerdown', function (pointer) {
        	this.tint = colors[4];
        	try{
-       		navigator.vibrate(60000);
+       		navigator.vibrate(120000);
        	}
        	catch(e){}
     });
@@ -101,13 +107,12 @@ function create(){
 }
 
 function readVisherAccel(event){
+	
+	// VISHER
+	
 	var gravity = event.accelerationIncludingGravity.x;
 
 	logoBtns[1].angle = gravity * 3;
-	
-	if (gravity < 1 && gravity > -1){
-		huHaReset = true;
-	}
 	
 	if (gravity < -5 && huHaReset){
 		if (!huSound.isPlaying){
@@ -121,6 +126,12 @@ function readVisherAccel(event){
 			huHaReset = false;
 		}
 	}
+
+	if (gravity < 2.5 && gravity > -2.5){
+		huHaReset = true;
+	}
+	
+	// SHAKER
 	
 	var aveAccel = (
 		event.accelerationIncludingGravity.x + 
@@ -146,7 +157,7 @@ function readVisherAccel(event){
 	
 	lastAccel = aveAccel;
 	
-	debug_text.text = 'visher: ' + Math.round(gravity * 100) / 100 + ' | shaker: ' + aveAccel;
+	debug_text.text = 'visher: ' + Math.round(gravity * 100) / 100 + ' | shaker: ' + Math.round(aveAccel * 100) / 100;
 }
 
 function plugIns(){
