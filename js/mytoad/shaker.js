@@ -34,42 +34,42 @@ shaker.prototype = {
 		try{window.addEventListener('deviceorientation', function(){
 			angle = event.gamma;
 		});} catch(e){}
-		
-		if (game.state.getCurrentState().key == 'Shaker'){
-			try{window.addEventListener('devicemotion', readAcc);} catch(e){}
-		}
+			
+		try{window.addEventListener('devicemotion', readAcc);} catch(e){}
     }
 };
 
 function readAcc(event){
-	var aveAccel = (
-		event.accelerationIncludingGravity.x + 
-		event.accelerationIncludingGravity.y +
-		event.accelerationIncludingGravity.z
-	) / 3;
-
-	if (!frontSfx.isPlaying && !backSfx.isPlaying){
-		if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
-			if (lastAction != 'FRONT'){
-				frontSfx.play();
-				flashShaker(FRONT_COLOR);
-				
-				lastAction = 'FRONT';
+	if (game.state.getCurrentState().key == 'Shaker'){
+		var aveAccel = (
+			event.accelerationIncludingGravity.x + 
+			event.accelerationIncludingGravity.y +
+			event.accelerationIncludingGravity.z
+		) / 3;
+	
+		if (!frontSfx.isPlaying && !backSfx.isPlaying){
+			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
+				if (lastAction != 'FRONT'){
+					frontSfx.play();
+					flashShaker(FRONT_COLOR);
+					
+					lastAction = 'FRONT';
+				}
+			}
+			
+			else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
+				if (lastAction != 'BACK'){
+					backSfx.play();
+					flashShaker(BACK_COLOR);
+					
+					lastAction = 'BACK';
+				}
 			}
 		}
 		
-		else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
-			if (lastAction != 'BACK'){
-				backSfx.play();
-				flashShaker(BACK_COLOR);
-				
-				lastAction = 'BACK';
-			}
-		}
+		lastAngle = angle;
+		lastAccel = aveAccel;	
 	}
-	
-	lastAngle = angle;
-	lastAccel = aveAccel;	
 }
 
 function flashShaker(_color){

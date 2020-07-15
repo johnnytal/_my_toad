@@ -128,17 +128,17 @@ function flicker(_this){
 	}
 	
 	
-	if (flash_on && flicker_on){
+	if (flash_on && flicker_on){				
+		if (flicker_interval != null){
+			clearInterval(flicker_interval);
+			flicker_interval = null;
+		}
+				
 		flicker_interval = setInterval(function(){
 			if (window.plugins.flashlight.isSwitchedOn()){
 				window.plugins.flashlight.switchOff();
 				if (syncVib){
 					navigator.vibrate(0);
-				}
-				
-				if (flicker_interval != null){
-					clearInterval(flicker_interval);
-					flicker_interval = null;
 				}
 			}
 			else{
