@@ -85,7 +85,7 @@ function change_flicker(_this){
 
 	rateText.text = flickingRate;
 	_this.tint = CHOSEN_TINT;
-	
+
 	start_flicking();
 }
 
@@ -99,7 +99,7 @@ function flash(_this){
 		
 		flash_on = true;
 		
-		if (flicker_on) start_flicking();
+		start_flicking();
 	}
 	else{
 		_this.tint = 0xffffff;
@@ -126,24 +126,24 @@ function flicker(_this){
 		resetFlickerTimer();
 	}
 	
-	if (flash_on && flicker_on){
-		start_flicking();
-	}
+	start_flicking();
 }
 
 function start_flicking(){
-	resetFlickerTimer();
-	
-	flicker_interval = setInterval(function(){
-		if (window.plugins.flashlight.isSwitchedOn()){
-			window.plugins.flashlight.switchOff();
-			if (syncing_vib) navigator.vibrate(0);
-		}
-		else{
-			window.plugins.flashlight.switchOn();
-			if (syncing_vib) navigator.vibrate(flickingRate);
-		}
-	}, flickingRate);
+	if (flash_on && flicker_on){
+		resetFlickerTimer();
+		
+		flicker_interval = setInterval(function(){
+			if (window.plugins.flashlight.isSwitchedOn()){
+				window.plugins.flashlight.switchOff();
+				if (syncing_vib) navigator.vibrate(0);
+			}
+			else{
+				window.plugins.flashlight.switchOn();
+				if (syncing_vib) navigator.vibrate(flickingRate);
+			}
+		}, flickingRate);
+	}
 }
 
 function vibrator(_this){
