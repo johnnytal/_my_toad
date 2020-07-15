@@ -1,11 +1,10 @@
 var flasher = function(game){
 	btn_keys = ['btn_Flasher', 'btn_Visualizer', 'btn_Buttons', 'btn_Shaker', 'btn_Visher', 'btn_Riddles'];
 	CHOSEN_TINT = 0xff00ff;
+	state = btn_keys[0].slice(4);
 	
 	flash_on = false;
 	flicker_on = false;
-	
-	state = btn_keys[0].slice(4);
 	
 	flickingRate = 500;
 	MAX_RATE = 5000;
@@ -18,39 +17,36 @@ var flasher = function(game){
 
 flasher.prototype = {
     create: function(){  
-    	game.stage.backgroundColor = '#f7f7f7';
+    	createButtons();
     	
-    	initPlugIns();
-    	    
-		createButtons();
+    	game.stage.backgroundColor = '#f7f7f7';
 		
 		btn_light = game.add.sprite(300, 200, 'lightBtn');
 	    btn_light.inputEnabled = true;
 	    btn_light.events.onInputDown.add(flash, this);
 		    
 		btn_vibrate = game.add.sprite(300, 700, 'vibrateBtn');
-		btn_vibrate.scale.set(.9, .9);
 		btn_vibrate.inputEnabled = true;
-		btn_vibrate.events.onInputDown.add(vibrate, this);
+		btn_vibrate.events.onInputDown.add(vibrator, this);
 		btn_vibrate.events.onInputUp.add(function(){
 			stopVibrate();
 		}, this);
 		    
 		syncVibBtn = game.add.sprite(btn_vibrate.x - 250, 700, 'syncVib');
 		syncVibBtn.inputEnabled = true;
-		syncVibBtn.events.onInputDown.add(syncVib, this);
+		syncVibBtn.events.onInputDown.add(syncVibrator, this);
 		
 		flickerBtn = game.add.sprite(100, 200, 'flickerBtn');
 		flickerBtn.inputEnabled = true;
 		flickerBtn.events.onInputDown.add(flicker, this);
 
-		rateText = game.add.text(flickerBtn.x + 40, flickerBtn.y + 180, flickingRate, {
+		rateText = game.add.text(flickerBtn.x + 45, flickerBtn.y + 185, flickingRate, {
             font: '28px', fill: 'blue', fontWeight: 'bold', align: 'center'
         });
   		    
 		btn_ms_up = game.add.sprite(flickerBtn.x + 40, flickerBtn.y + 105, 'blue_sliderUp');
 		btn_ms_up.inputEnabled = true;
-		btn_ms_up.scale.set(1.5, 1.5);
+		btn_ms_up.scale.set(1.75, 1.75);
 		btn_ms_up.events.onInputDown.add(change_flicker, this);
 		btn_ms_up.events.onInputUp.add(function(){
 			btn_ms_up.tint = 0xffffff;
@@ -58,7 +54,7 @@ flasher.prototype = {
 		
 		btn_ms_down = game.add.sprite(flickerBtn.x + 40,  flickerBtn.y + 225, 'blue_sliderDown');
 		btn_ms_down.inputEnabled = true;
-		btn_ms_down.scale.set(1.5, 1.5);
+		btn_ms_down.scale.set(1.75, 1.75);
 		btn_ms_down.events.onInputDown.add(change_flicker, this);
 		btn_ms_down.events.onInputUp.add(function(){
 			btn_ms_down.tint = 0xffffff;
@@ -66,7 +62,7 @@ flasher.prototype = {
     }
 };
 
-function syncVib(_this){
+function syncVibrator(_this){
 	if (!syncing_vib){
 		_this.tint = CHOSEN_TINT;
 		syncing_vib = true;
@@ -87,10 +83,7 @@ function change_flicker(_this){
 		else{ flickingRate = MAX_RATE; }
 	}
 	
-	if (flicker_interval != null){
-		clearInterval(flicker_interval);
-		flicker_interval = null;
-	}
+	resetFlickerTimer();
 
 	rateText.text = flickingRate;
 	_this.tint = CHOSEN_TINT;
@@ -125,25 +118,23 @@ function flicker(_this){
 	else{
 		_this.tint = 0xffffff;
 		flicker_on = false;		
+		
+		resetFlickerTimer();
 	}
 	
-	
 	if (flash_on && flicker_on){				
-		if (flicker_interval != null){
-			clearInterval(flicker_interval);
-			flicker_interval = null;
-		}
+		resetFlickerTimer();
 				
 		flicker_interval = setInterval(function(){
 			if (window.plugins.flashlight.isSwitchedOn()){
 				window.plugins.flashlight.switchOff();
-				if (syncVib){
+				if (syncing_vib){
 					navigator.vibrate(0);
 				}
 			}
 			else{
 				window.plugins.flashlight.switchOn();
-				if (syncVib){
+				if (syncing_vib){
 					navigator.vibrate(flickingRate);
 				}
 			}
@@ -151,10 +142,10 @@ function flicker(_this){
 	}
 }
 
-function vibrate(_this){
+function vibrator(_this){
 	_this.tint = CHOSEN_TINT;	
 	
-	if (!syncVib){
+	if (!syncing_vib){
 		navigator.vibrate(120000);
 	}
 }
@@ -162,6 +153,13 @@ function vibrate(_this){
 function stopVibrate(){
 	btn_vibrate.tint = 0xffffff;
 	navigator.vibrate(0);	
+}
+
+function resetFlickerTimer(){
+	if (flicker_interval != null){
+		clearInterval(flicker_interval);
+		flicker_interval = null;
+	}
 }
 
 function createButtons(){
@@ -182,7 +180,6 @@ function createButtons(){
 
 function goToState(_this){
 	state = _this.key.slice(4);
-	
     game.state.start(state);
 }
 

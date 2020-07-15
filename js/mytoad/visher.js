@@ -8,7 +8,6 @@ var visher = function(game){
 visher.prototype = {
     create: function(){      
 		createButtons();
-		
 		game.stage.backgroundColor = '#ff4502';
 
 		wiper = game.add.sprite(0, 0, 'bigLogo'); // the wiper image is mostly for debugging purposses
@@ -20,7 +19,7 @@ visher.prototype = {
         wiper.x = WIDTH - wiper.width;
         wiper.anchor.set(.5, 1);
 
-        debug_text = game.add.text(250, 300, "Vish it!", {font: '32px', fill: 'white'});
+        debug_text = game.add.text(250, 800, "Vish it!", {font: '32px', fill: 'white'});
         
     	huSfx = game.add.audio('hu', 1);
 		haSfx = game.add.audio('ha', 1);

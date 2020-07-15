@@ -5,8 +5,11 @@ var visualizer = function(game){
 visualizer.prototype = {
     create: function(){      
 	    createButtons();
-	    
     	game.stage.backgroundColor = '#22566f';
+    	
+		logo = game.add.image(0, 0, 'bigLogo');
+        logo.x = WIDTH / 2 - logo.width / 2;
+        logo.y =  HEIGHT / 2 - logo.height / 2;
     	
     	createColorBtns();
     }

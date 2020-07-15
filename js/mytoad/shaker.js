@@ -9,11 +9,11 @@ var shaker = function(game){
 	lastAccel = 0;
 	lastAngle = 0;
 
-	MIN_ACCEL_F = 0.7;
-	MIN_ACCEL_B = 0.4;
+	MIN_ACCEL_F = 0.6;
+	MIN_ACCEL_B = 0.3;
 
-	MIN_ANGLE_F = 0.35;
-	MIN_ANGLE_B = 0.15;
+	MIN_ANGLE_F = 0.3;
+	MIN_ANGLE_B = 0.1;
 	
 	lastAction = '';
 };
@@ -21,7 +21,6 @@ var shaker = function(game){
 shaker.prototype = {
     create: function(){      
 		createButtons();
-		
 		game.stage.backgroundColor = DEFAULT_COLOR;
 
 		logo = game.add.image(0, 0, 'bigLogo');
@@ -51,6 +50,7 @@ function readAcc(event){
 			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
 				if (lastAction != 'FRONT'){
 					frontSfx.play();
+					frontSfx.volume = aveAccel;
 					flashShaker(FRONT_COLOR);
 					
 					lastAction = 'FRONT';
@@ -60,6 +60,7 @@ function readAcc(event){
 			else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
 				if (lastAction != 'BACK'){
 					backSfx.play();
+					backSfx.volume = aveAccel;
 					flashShaker(BACK_COLOR);
 					
 					lastAction = 'BACK';

@@ -1,5 +1,5 @@
 var buttons = function(game){
-	SOUND_BUTTONS_N = 3; // number of buttons (duh)
+	SOUND_BUTTONS_N = 3;
 	
 	gate_mode = false; 
 	stop_mode = true;
@@ -9,7 +9,6 @@ var buttons = function(game){
 buttons.prototype = {
     create: function(){      
 		createButtons();
-		
     	game.stage.backgroundColor = '#ff2256';
     	
     	createSoundBtns();
