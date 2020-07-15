@@ -86,3 +86,13 @@ function webaudio_tooling_obj(){
         );
     } else { alert('getUserMedia not supported in this browser'); }
 }
+
+function ascendLogos(StartX, startY){
+	logoAscend = game.add.sprite(StartX + 100, HEIGHT - startY, 'logoSprite');
+	logoAscend.scale.set(averageValue / 10, averageValue / 10);
+	logoAscend.tint = 0xffffff * (largestFreq / 100);
+	logoAscend.alpha = 0.6;
+
+    tween = game.add.tween(logoAscend).to( { alpha: 0 }, 350, "Linear", true);
+    tween.onComplete.add(function(){ logoAscend.destroy; }, this);
+}

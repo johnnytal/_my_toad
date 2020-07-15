@@ -62,11 +62,8 @@ function start_stream(stream){
 		 //dominance = largestValue / averageValue;
 
 		 middleLogo.scale.set(1 - averageValue / 100, 1 - averageValue / 100);
-		 
-		 if (isMobile()){ // flasher
-
-		 }
-  	 	 
+		 ascendLogos(largestFreq * (game.scale.width / 120), averageValue * ((game.scale.height - 200) / 20));
+		   	 	 
   	 	 lastAverageValue = averageValue;
  	};
 }

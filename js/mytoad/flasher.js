@@ -40,8 +40,8 @@ flasher.prototype = {
 		flickerBtn.inputEnabled = true;
 		flickerBtn.events.onInputDown.add(flicker, this);
 
-		rateText = game.add.text(flickerBtn.x + 60, flickerBtn.y + 230, flickingRate, {
-            font: '32px', fill: 'blue', fontWeight: 'bold', align: 'center'
+		rateText = game.add.text(flickerBtn.x + 55, flickerBtn.y + 230, flickingRate, {
+            font: '36px', fill: 'blue', fontWeight: 'bold', align: 'center'
         });
   		    
 		btn_ms_up = game.add.sprite(flickerBtn.x + 40, flickerBtn.y + 80, 'blue_sliderUp');
@@ -66,10 +66,16 @@ function syncVibrator(_this){
 	if (!syncing_vib){
 		_this.tint = CHOSEN_TINT;
 		syncing_vib = true;
+		
+		btn_vibrate.tint = 0x777777;
+		btn_vibrate.inputEnabled = false;
 	}
 	else{
 		_this.tint = 0xffffff;
 		syncing_vib = false;
+		
+		btn_vibrate.tint = 0xffffff;
+		btn_vibrate.inputEnabled = true;
 	}
 }
 
@@ -117,10 +123,16 @@ function flash(_this){
 function flicker(_this){
 	if (!flicker_on){
 		_this.tint = CHOSEN_TINT;
+		
+		flash_on = true;
+		btn_light.tint = CHOSEN_TINT;
+		start_flicking();
+		
 		flicker_on = true;
 	}
 	else{
 		_this.tint = 0xffffff;
+
 		flicker_on = false;		
 		
 		resetFlickerTimer();
