@@ -1,5 +1,5 @@
 var visher = function(game){
-	GO_ANGLE = 25; // the visher angle to make the sounds trigger
+	GO_ANGLE = 25; // Visher angle that makes the sounds trigger
 	
 	HU_COLOR = '#ff00ff';
 	HA_COLOR = '#f0ff0f';
@@ -10,13 +10,13 @@ visher.prototype = {
 		createButtons();
 		game.stage.backgroundColor = '#ff4502';
 
-		wiper = game.add.sprite(0, 0, 'bigLogo'); // the wiper image is mostly for debugging purposses
+		wiper = game.add.sprite(0, 0, 'bigLogo');
 		wiper.enableBody = true;
 		wiper.physicsBodyType = Phaser.Physics.ARCADE;
 		wiper.scale.set(1.3, 1.3);
 
         wiper.y = HEIGHT / 2 + wiper.height / 4;
-        wiper.x = WIDTH - wiper.width;
+        wiper.x = game.world.centerX;
         wiper.anchor.set(.5, 1);
 
         debug_text = game.add.text(250, 800, "Vish it!", {font: '32px', fill: 'white'});
@@ -42,14 +42,16 @@ visher.prototype = {
 
 function readVisherAccel(event){
 	if (game.state.getCurrentState().key == 'Visher'){
-		wiper.angle = event.accelerationIncludingGravity.x * 3;
-		debug_text.text = Math.round(event.accelerationIncludingGravity.x * 100) / 100;
+		var AccelX = event.accelerationIncludingGravity.x;
+		
+		wiper.angle = AccelX * 3;
+		debug_text.text = roundIt(AccelX);
 	}
 }
 
 function flashVisher(_color){
 	window.plugins.flashlight.switchOn(); //flash
-	navigator.vibrate(35); //vibrate
+	navigator.vibrate(40); //vibrate
 	game.stage.backgroundColor = _color; //change color
 	
 	setTimeout(function(){

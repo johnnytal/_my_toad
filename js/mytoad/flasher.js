@@ -7,7 +7,7 @@ var flasher = function(game){
 	flicker_on = false;
 	
 	flickingRate = 500;
-	MAX_RATE = 5000;
+	MAX_RATE = 3000;
 	MIN_RATE = 100;
 	
 	syncing_vib = false;
@@ -82,11 +82,11 @@ function change_flicker(_this){
 		if (flickingRate > MIN_RATE) flickingRate -= MIN_RATE;
 		else{ flickingRate = MAX_RATE; }
 	}
-	
-	resetFlickerTimer();
 
 	rateText.text = flickingRate;
 	_this.tint = CHOSEN_TINT;
+	
+	start_flicking();
 }
 
 function flash(_this){
@@ -98,6 +98,8 @@ function flash(_this){
 		}
 		
 		flash_on = true;
+		
+		if (flicker_on) start_flicking();
 	}
 	else{
 		_this.tint = 0xffffff;
@@ -107,6 +109,8 @@ function flash(_this){
 		}
 		
 		flash_on = false;
+		
+		if (flicker_on) resetFlickerTimer();
 	}
 }
 
@@ -122,24 +126,24 @@ function flicker(_this){
 		resetFlickerTimer();
 	}
 	
-	if (flash_on && flicker_on){				
-		resetFlickerTimer();
-				
-		flicker_interval = setInterval(function(){
-			if (window.plugins.flashlight.isSwitchedOn()){
-				window.plugins.flashlight.switchOff();
-				if (syncing_vib){
-					navigator.vibrate(0);
-				}
-			}
-			else{
-				window.plugins.flashlight.switchOn();
-				if (syncing_vib){
-					navigator.vibrate(flickingRate);
-				}
-			}
-		}, flickingRate);
+	if (flash_on && flicker_on){
+		start_flicking();
 	}
+}
+
+function start_flicking(){
+	resetFlickerTimer();
+	
+	flicker_interval = setInterval(function(){
+		if (window.plugins.flashlight.isSwitchedOn()){
+			window.plugins.flashlight.switchOff();
+			if (syncing_vib) navigator.vibrate(0);
+		}
+		else{
+			window.plugins.flashlight.switchOn();
+			if (syncing_vib) navigator.vibrate(flickingRate);
+		}
+	}, flickingRate);
 }
 
 function vibrator(_this){

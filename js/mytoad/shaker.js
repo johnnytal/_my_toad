@@ -9,11 +9,11 @@ var shaker = function(game){
 	lastAccel = 0;
 	lastAngle = 0;
 
-	MIN_ACCEL_F = 0.6;
-	MIN_ACCEL_B = 0.3;
+	MIN_ACCEL_F = 0.55;
+	MIN_ACCEL_B = 0.25;
 
-	MIN_ANGLE_F = 0.3;
-	MIN_ANGLE_B = 0.1;
+	MIN_ANGLE_F = 0.25;
+	MIN_ANGLE_B = 0.05;
 	
 	lastAction = '';
 };

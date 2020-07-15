@@ -15,13 +15,13 @@ buttons.prototype = {
 
     	game.input.addPointer();
 
-     /*   mode_button = this.add.image(0, 0, 'cont');
+        mode_button = this.add.image(0, 0, 'cont');
         mode_button.frame = 1;
-        mode_button.y = HEIGHT - mode_button.height;
+        mode_button.y = HEIGHT - mode_button.height - 100;
         mode_button.x = WIDTH - mode_button.width - 50;
         
         mode_button.inputEnabled = true;
-        mode_button.events.onInputDown.add(toggle_mode, this);*/
+        mode_button.events.onInputDown.add(toggle_mode, this);
 
 	    sfx1 = game.add.audio('note1', 1);
 	    sfx2 = game.add.audio('note2', 1);

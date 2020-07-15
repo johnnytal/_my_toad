@@ -30,6 +30,8 @@ preloader.prototype = {
         game.load.audio('front', 'assets/mytoad/audio/front.mp3');
         game.load.audio('hu', 'assets/mytoad/audio/hu.mp3');
         game.load.audio('ha', 'assets/mytoad/audio/ha.mp3');
+        
+        game.load.spritesheet("cont", "assets/mytoad/images/cont.png", 325/2, 102);
     },
     
     create: function(){

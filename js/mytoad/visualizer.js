@@ -7,11 +7,21 @@ visualizer.prototype = {
 	    createButtons();
     	game.stage.backgroundColor = '#22566f';
     	
-		logo = game.add.image(0, 0, 'bigLogo');
-        logo.x = WIDTH / 2 - logo.width / 2;
-        logo.y =  HEIGHT / 2 - logo.height / 2;
+		middleLogo = game.add.image(0, 0, 'bigLogo');
+		middleLogo.anchor.set(.5, .5);
+        middleLogo.x = game.world.centerX;
+        middleLogo.y = game.world.centerY;
     	
     	createColorBtns();
+    	
+    	if (isMobile()){
+    		startMic();
+    	}
+    	else{
+			setTimeout(function(){
+				getDevices();
+			}, 500);
+    	}
     }
 };
 
