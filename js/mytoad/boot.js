@@ -1,49 +1,45 @@
-document.addEventListener("deviceready", start, false);
-document.addEventListener("pause", onPause, false);
-document.addEventListener("resume", onResume, false);
-
 //window.onload = start;
+document.addEventListener("deviceready", start, false);
 
-function start(){ 
-	var gameRatio = window.innerWidth / window.innerHeight;
-	
-    WIDTH =  720;
-    HEIGHT = 1200;
+function start(){
+    WIDTH = 720; 
+    HEIGHT = 1296; 
 
-	var config = {
-	    type: Phaser.WEBGL,
-	    parent: 'game',
-	    width: WIDTH,
-	    height: HEIGHT,
-	    backgroundColor: '#432333',
-	    scene: {
-	        preload: preload,
-	        create: create
-	    },
-	    scale: {
-		    parent: 'game',
-		    mode: Phaser.Scale.FIT,
-		    width: WIDTH,
-		    height: HEIGHT, 
-		    orientation: Phaser.Scale.Orientation.PORTRAIT
-		},
-	    input :{
-			activePointers: 3
-		}
-	};
+    game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, "container");  
 
-	game = new Phaser.Game(config);
+    game.state.add("Boot", boot);
+    game.state.add("Preloader", preloader);
+    
+    game.state.add("Flasher", flasher);
+    game.state.add("Buttons", buttons);
+    game.state.add("Shaker", shaker);
+    game.state.add("Visher", visher);
+    game.state.add("Visualizer", visualizer);
+    game.state.add("Riddles", riddles);
+    
+    game.state.start("Boot");  
 }
 
-function onPause(){
-    game.paused = true;
-}
+var boot = function(game){};
+  
+boot.prototype = {
+    create: function(){
+    	
+    	game.stage.backgroundColor = '#f7f7f7';
+    	
+        if (this.game.device.desktop){
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        } 
+        
+        else {
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-function onResume(){
-    game.paused = false;
-    setTimeout(function(){
-        try{
-            StatusBar.hide();
-        }catch(e){}   
-    }, 1000);
-}
+            this.scale.maxWidth = window.innerWidth * window.devicePixelRatio;
+            this.scale.maxHeight = window.innerHeight * window.devicePixelRatio;
+            
+            this.scale.forceOrientation(false, true);
+        }
+        
+        game.state.start("Preloader"); 
+    }
+};

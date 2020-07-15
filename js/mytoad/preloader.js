@@ -1,81 +1,36 @@
-function preload (){  
-	progressBar(this);  
-	
-    this.load.image("button_blank", "assets/mytoad/images/button_blank.png");
-    this.load.image("lightBtn", "assets/mytoad/images/lightBtn.png");
-    this.load.image("vibrateBtn", "assets/mytoad/images/vibrateBtn.png");
-    
-    this.load.image("logo", "assets/mytoad/images/logo.png");
-    
-    this.load.image('logo_spritesheet', 'assets/mytoad/images/logoSprite.png');
-
-    this.load.audio('note1', 'assets/mytoad/audio/note1.mp3');
-    this.load.audio('note2', 'assets/mytoad/audio/note2.mp3');
-    this.load.audio('note3', 'assets/mytoad/audio/note3.mp3');
-    
-    this.load.audio('hu', 'assets/mytoad/audio/hu.mp3');
-    this.load.audio('ha', 'assets/mytoad/audio/ha.mp3');
-    
-    this.load.audio('front', 'assets/mytoad/audio/front.mp3');
-    this.load.audio('back', 'assets/mytoad/audio/back.mp3');
-}
-
-function progressBar(_this){
-	var progressBar = _this.add.graphics();
-    var progressBox = _this.add.graphics();
-    progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(240, 270, 320, 50);
-    
-    var loadingText = _this.make.text({
-        x: WIDTH / 2,
-        y: HEIGHT / 2 - 50,
-        text: 'Loading...',
-        style: {
-            font: '20px monospace',
-            fill: '#ffffff'
-        }
-    });
-    loadingText.setOrigin(0.5, 0.5);
-    
-    var percentText = _this.make.text({
-        x: WIDTH / 2,
-        y: HEIGHT / 2 - 5,
-        text: '0%',
-        style: {
-            font: '18px monospace',
-            fill: '#ffffff'
-        }
-    });
-    percentText.setOrigin(0.5, 0.5);
-    
-    var assetText = _this.make.text({
-        x: WIDTH / 2,
-        y: HEIGHT / 2 + 50,
-        text: '',
-        style: {
-            font: '18px monospace',
-            fill: '#ffffff'
-            }
-        });
+var preloader = function(game){};
  
-        assetText.setOrigin(0.5, 0.5);
-            
-        _this.load.on('progress', function (value) {
-        percentText.setText(parseInt(value * 100) + '%');
-        progressBar.clear();
-        progressBar.fillStyle(0xffffff, 1);
-        progressBar.fillRect(250, 280, 300 * value, 30);
-    });
+preloader.prototype = {
+    preload: function(){
+        game.load.image('btn_Buttons', 'assets/mytoad/images/btn_buttons.png');
+        game.load.image('btn_Flasher', 'assets/mytoad/images/btn_flash.png');
+        game.load.image('btn_Riddles', 'assets/mytoad/images/btn_riddles.png');
+        game.load.image('btn_Shaker', 'assets/mytoad/images/btn_shake.png');
+        game.load.image('btn_Visher', 'assets/mytoad/images/btn_visher.png');
+        game.load.image('btn_Visualizer', 'assets/mytoad/images/btn_visu.png');
+       
+        game.load.image('lightBtn', 'assets/mytoad/images/lightBtn.png');
+        game.load.image('vibrateBtn', 'assets/mytoad/images/vibrateBtn.png');
+        
+        game.load.image('logoSprite', 'assets/mytoad/images/logoSprite.png');
+        game.load.image('logo', 'assets/mytoad/images/logo.png');
+        game.load.image('bigLogo', 'assets/mytoad/images/bigLogo.png');
+        
+        game.load.image('blue_sliderDown', 'assets/mytoad/images/blue_sliderDown.png');
+        game.load.image('blue_sliderUp', 'assets/mytoad/images/blue_sliderUp.png');
+        
+        game.load.image('syncVib', 'assets/mytoad/images/syncVib.png');
+        game.load.image('flickerBtn', 'assets/mytoad/images/flickerBtn.png');
+        
+        game.load.audio('note1', 'assets/mytoad/audio/note1.mp3');
+        game.load.audio('note2', 'assets/mytoad/audio/note2.mp3');
+        game.load.audio('note3', 'assets/mytoad/audio/note3.mp3');
+        
+        game.load.audio('back', 'assets/mytoad/audio/back.mp3');
+        game.load.audio('front', 'assets/mytoad/audio/front.mp3');
+    },
     
-    _this.load.on('fileprogress', function (file) {
-        assetText.setText('Loading asset: ' + file.key);
-    });
- 
-    _this.load.on('complete', function () {
-        progressBar.destroy();
-        progressBox.destroy();
-        loadingText.destroy();
-        percentText.destroy();
-        assetText.destroy();
-    });
-}
+    create: function(){
+        this.game.state.start("Flasher"); 
+    }
+};
