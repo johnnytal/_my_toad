@@ -1,5 +1,5 @@
 var visualizer = function(game){
-
+	backgroundColors = [0xff0000, 0x10ff00, 0x1000ff];
 };
 
 visualizer.prototype = {
@@ -9,10 +9,6 @@ visualizer.prototype = {
     	game.stage.backgroundColor = '#22566f';
     	
     	createColorBtns();
-    },
-    
-    update: function(){
-    
     }
 };
 
@@ -20,14 +16,16 @@ function createColorBtns(){
     soundBtnsGroup = game.add.physicsGroup(Phaser.Physics.ARCADE);
 	        
     for(b = 0; b < SOUND_BUTTONS_N; b++){
-    	soundButtons[b] = soundBtnsGroup.create(28 + (220 * b), 200, 'bigLogo');
-    	soundButtons[b].scale.set(.5, .5);
+    	soundButtons[b] = soundBtnsGroup.create(28 + (220 * b), 200, 'logo');
     	soundButtons[b].inputEnabled = true;
+    	soundButtons[b].name = b;
+    	soundButtons[b].tint = backgroundColors[b];
 
 		soundButtons[b].events.onInputDown.add(changeColor, this);  
     }
 }
 
-function changeColor(){
-	game.stage.backgroundColor = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+function changeColor(_this){
+	var color = (backgroundColors[_this.name]).toString(16);
+	game.stage.backgroundColor = color;
 }

@@ -12,6 +12,8 @@ var flasher = function(game){
 	MIN_RATE = 100;
 	
 	syncing_vib = false;
+	
+	flicker_interval = null;
 };
 
 flasher.prototype = {
@@ -77,22 +79,19 @@ function syncVib(_this){
 
 function change_flicker(_this){
 	if (_this.key == 'blue_sliderUp'){
-		if (flickingRate < MAX_RATE){
-			flickingRate += MIN_RATE;
-		}
-		else{
-			flickingRate = MIN_RATE;
-		}
+		if (flickingRate < MAX_RATE) flickingRate += MIN_RATE;
+		else{ flickingRate = MIN_RATE; }
 	}
 	else{
-		if (flickingRate > MIN_RATE){
-			flickingRate -= MIN_RATE;
-		}
-		else{
-			flickingRate = MAX_RATE;
-		}
+		if (flickingRate > MIN_RATE) flickingRate -= MIN_RATE;
+		else{ flickingRate = MAX_RATE; }
 	}
 	
+	if (flicker_interval != null){
+		clearInterval(flicker_interval);
+		flicker_interval = null;
+	}
+
 	rateText.text = flickingRate;
 	_this.tint = CHOSEN_TINT;
 }
@@ -130,11 +129,16 @@ function flicker(_this){
 	
 	
 	if (flash_on && flicker_on){
-		setInterval(function(){
+		flicker_interval = setInterval(function(){
 			if (window.plugins.flashlight.isSwitchedOn()){
 				window.plugins.flashlight.switchOff();
 				if (syncVib){
 					navigator.vibrate(0);
+				}
+				
+				if (flicker_interval != null){
+					clearInterval(flicker_interval);
+					flicker_interval = null;
 				}
 			}
 			else{
