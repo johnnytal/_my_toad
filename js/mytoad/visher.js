@@ -14,10 +14,11 @@ visher.prototype = {
 		wiper = game.add.sprite(0, 0, 'bigLogo'); // the wiper image is mostly for debugging purposses
 		wiper.enableBody = true;
 		wiper.physicsBodyType = Phaser.Physics.ARCADE;
+		wiper.scale.set(1.3, 1.3);
 
         wiper.y = HEIGHT / 2 + wiper.height / 4;
         wiper.x = WIDTH - wiper.width;
-        wiper.anchor.set(1, .5);
+        wiper.anchor.set(.5, 1);
 
         debug_text = game.add.text(250, 300, "Vish it!", {font: '32px', fill: 'white'});
         

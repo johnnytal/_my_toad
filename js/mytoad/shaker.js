@@ -52,7 +52,7 @@ function readAcc(event){
 			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
 				if (lastAction != 'FRONT'){
 					frontSfx.play();
-					flash(FRONT_COLOR);
+					flashShaker(FRONT_COLOR);
 					
 					lastAction = 'FRONT';
 				}
@@ -61,7 +61,7 @@ function readAcc(event){
 			else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
 				if (lastAction != 'BACK'){
 					backSfx.play();
-					flash(BACK_COLOR);
+					flashShaker(BACK_COLOR);
 					
 					lastAction = 'BACK';
 				}
@@ -73,7 +73,7 @@ function readAcc(event){
 	}
 }
 
-function flash(_color){
+function flashShaker(_color){
 	if (_color == FRONT_COLOR){
 		window.plugins.flashlight.switchOn();	
 		navigator.vibrate(60);

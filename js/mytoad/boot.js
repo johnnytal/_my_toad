@@ -3,7 +3,7 @@ document.addEventListener("deviceready", start, false);
 
 function start(){
     WIDTH = 720; 
-    HEIGHT = 1296; 
+    HEIGHT = 1274; 
 
     game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, "container");  
 
@@ -24,9 +24,6 @@ var boot = function(game){};
   
 boot.prototype = {
     create: function(){
-    	
-    	game.stage.backgroundColor = '#f7f7f7';
-    	
         if (this.game.device.desktop){
             this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         } 

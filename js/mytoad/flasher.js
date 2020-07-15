@@ -99,19 +99,21 @@ function change_flicker(_this){
 
 function flash(_this){
 	if (!flash_on){
+		_this.tint = CHOSEN_TINT;
+
 		if (isMobile()){
 			window.plugins.flashlight.switchOn();
 		}
 		
-		_this.tint = CHOSEN_TINT;
 		flash_on = true;
 	}
 	else{
+		_this.tint = 0xffffff;
+
 		if (isMobile()){
 			window.plugins.flashlight.switchOff();
 		}
 		
-		_this.tint = 0xffffff;
 		flash_on = false;
 	}
 }
@@ -147,6 +149,7 @@ function flicker(_this){
 
 function vibrate(_this){
 	_this.tint = CHOSEN_TINT;	
+	
 	if (!syncVib){
 		navigator.vibrate(120000);
 	}
