@@ -1,6 +1,6 @@
 var flasher = function(game){
 	btn_keys = ['btn_Flasher', 'btn_Visualizer', 'btn_Buttons', 'btn_Shaker', 'btn_Visher', 'btn_Riddles'];
-	CHOSEN_TINT = 0xff00ff;
+	CHOSEN_TINT = 0xf55faa5;
 	state = btn_keys[0].slice(4);
 	
 	flash_on = false;
@@ -40,21 +40,21 @@ flasher.prototype = {
 		flickerBtn.inputEnabled = true;
 		flickerBtn.events.onInputDown.add(flicker, this);
 
-		rateText = game.add.text(flickerBtn.x + 45, flickerBtn.y + 185, flickingRate, {
-            font: '28px', fill: 'blue', fontWeight: 'bold', align: 'center'
+		rateText = game.add.text(flickerBtn.x + 60, flickerBtn.y + 230, flickingRate, {
+            font: '32px', fill: 'blue', fontWeight: 'bold', align: 'center'
         });
   		    
-		btn_ms_up = game.add.sprite(flickerBtn.x + 40, flickerBtn.y + 105, 'blue_sliderUp');
+		btn_ms_up = game.add.sprite(flickerBtn.x + 40, flickerBtn.y + 80, 'blue_sliderUp');
 		btn_ms_up.inputEnabled = true;
-		btn_ms_up.scale.set(1.75, 1.75);
+		btn_ms_up.scale.set(3, 3);
 		btn_ms_up.events.onInputDown.add(change_flicker, this);
 		btn_ms_up.events.onInputUp.add(function(){
 			btn_ms_up.tint = 0xffffff;
 		}, this);
 		
-		btn_ms_down = game.add.sprite(flickerBtn.x + 40,  flickerBtn.y + 225, 'blue_sliderDown');
+		btn_ms_down = game.add.sprite(flickerBtn.x + 40,  flickerBtn.y + 290, 'blue_sliderDown');
 		btn_ms_down.inputEnabled = true;
-		btn_ms_down.scale.set(1.75, 1.75);
+		btn_ms_down.scale.set(3, 3);
 		btn_ms_down.events.onInputDown.add(change_flicker, this);
 		btn_ms_down.events.onInputUp.add(function(){
 			btn_ms_down.tint = 0xffffff;
@@ -166,6 +166,8 @@ function resetFlickerTimer(){
 	}
 }
 
+/* general functions */
+
 function createButtons(){
     buttons = game.add.group();
     
@@ -194,7 +196,7 @@ function isMobile(){
 function initPlugIns(){
     try{window.plugins.insomnia.keepAwake();} catch(e){} // keep device awake
     try{StatusBar.hide();} catch(e){} // hide status bar
-    try{window.androidVolume.setMusic(100, false);} catch(e){} // change device media volume to maximum
+    try{window.androidVolume.setMusic(40, false);} catch(e){} // change device media volume to maximum
 }
 
 function roundIt(_num){

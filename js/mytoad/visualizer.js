@@ -42,3 +42,47 @@ function changeColor(_this){
 	var color = (backgroundColors[_this.name]).toString(16);
 	game.stage.backgroundColor = color;
 }
+
+function startMic(){
+	try{
+		window.audioinput.checkMicrophonePermission(function(hasPermission) {
+			if (hasPermission){
+				webaudio_tooling_obj();
+			}
+		    else{
+		        window.audioinput.getMicrophonePermission(function(hasPermission, message) {
+		        	if (hasPermission) {
+						webaudio_tooling_obj();		
+		        	}
+		        	else{
+		        		alert('Microphone permission needed for app to work!');
+		        	}
+		        });
+		    }
+		});
+	} catch(e){
+		alert('Please give microphone permission via Settings > Apps ' + e);
+	}	
+
+    try{
+        window.plugins.insomnia.keepAwake();
+    } catch(e){}   
+}
+
+function webaudio_tooling_obj(){
+	if (!navigator.getUserMedia){
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    }
+
+    if (navigator.getUserMedia){
+        navigator.getUserMedia({audio:true}, 
+            function(stream) {
+                start_stream(stream);
+            },
+            function(e) {
+                alert(e);
+            }
+        );
+    } else { alert('getUserMedia not supported in this browser'); }
+}
