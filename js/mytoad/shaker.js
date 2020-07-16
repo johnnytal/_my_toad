@@ -19,9 +19,8 @@ var shaker = function(game){
 };
 
 shaker.prototype = {
-    create: function(){      
-		createButtons();
-		game.stage.backgroundColor = DEFAULT_COLOR;
+    create: function(){  
+    	initState(DEFAULT_COLOR);
 
 		logo = game.add.image(0, 0, 'bigLogo');
         logo.x = WIDTH / 2 - logo.width / 2;

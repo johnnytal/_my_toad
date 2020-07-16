@@ -4,14 +4,19 @@ var riddles = function(game){
 	riddle_instructions = [
 		"Tap the screen",
 		"Tap the toad",
-		"Tilt Right"
+		"Swipe Right", 
+		"Tilt Left"
 	];
 };
 
 riddles.prototype = {
     create: function(){      
-		createButtons();
-		game.stage.backgroundColor = '#557744';
+		initState('#557744');
+		
+		screen = document.getElementById('game');
+        mc = new Hammer(screen);
+        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
+        mc.get('pinch').set({ enable: true });
 		
         riddleText = game.add.text(250, 300, riddle_instructions[riddles_solved], {font: '32px', fill: 'white'});
     },
@@ -20,6 +25,10 @@ riddles.prototype = {
         if (riddles_solved == 0 && game.input.activePointer.isDown){
             levelUp();
         }
+        
+        mc.on("swiperight", function(ev) {
+			levelUp();
+        });
     }
 };
 

@@ -4,9 +4,8 @@ var visualizer = function(game){
 
 visualizer.prototype = {
     create: function(){      
-	    createButtons();
-    	game.stage.backgroundColor = '#22566f';
-    	
+		initState('#ff0000');
+
 		middleLogo = game.add.image(0, 0, 'bigLogo');
 		middleLogo.anchor.set(.5, .5);
         middleLogo.x = game.world.centerX;
@@ -28,7 +27,7 @@ visualizer.prototype = {
 function createColorBtns(){        
     soundBtnsGroup = game.add.physicsGroup(Phaser.Physics.ARCADE);
 	        
-    for(b = 0; b < SOUND_BUTTONS_N; b++){
+    for(b = 0; b < backgroundColors.length; b++){
     	soundButtons[b] = soundBtnsGroup.create(28 + (220 * b), 200, 'logo');
     	soundButtons[b].inputEnabled = true;
     	soundButtons[b].name = b;

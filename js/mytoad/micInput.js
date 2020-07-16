@@ -48,23 +48,27 @@ function start_stream(stream){
       analyserNode.connect(script_processor_fft_node);
 
       script_processor_fft_node.onaudioprocess = function() {
-      	 var array = new Uint8Array(analyserNode.frequencyBinCount);
-      	 analyserNode.getByteFrequencyData(array);
+      	if (game.state.getCurrentState().key == 'Visualizer'){
+	      	 var array = new Uint8Array(analyserNode.frequencyBinCount);
+	      	 analyserNode.getByteFrequencyData(array);
+	
+	         for (var i = 0; i < array.length; i++) {
+	        	 averageValue += array[i];
+	         }
+	         
+	         averageValue = averageValue / array.length;
+	         largestValue = Math.max.apply(null, array);
+	         largestFreq = array.indexOf(largestValue);
+	
+			 //dominance = largestValue / averageValue;
+			 
+			 bg.alpha = largestValue / 100;
 
-         for (var i = 0; i < array.length; i++) {
-        	 averageValue += array[i];
-         }
-         
-         averageValue = averageValue / array.length;
-         largestValue = Math.max.apply(null, array);
-         largestFreq = array.indexOf(largestValue);
-
-		 //dominance = largestValue / averageValue;
-
-		 middleLogo.scale.set(1 - averageValue / 100, 1 - averageValue / 100);
-		 ascendLogos(largestFreq * (game.scale.width / 120), averageValue * ((game.scale.height - 200) / 20));
-		   	 	 
-  	 	 lastAverageValue = averageValue;
+			 middleLogo.scale.set(1 - averageValue / 100, 1 - averageValue / 100);
+			 ascendLogos(largestFreq * (game.scale.width / 120), averageValue * ((game.scale.height - 200) / 20));
+			 
+	  	 	 lastAverageValue = averageValue;
+  	 	}
  	};
 }
 

@@ -7,8 +7,7 @@ var visher = function(game){
 
 visher.prototype = {
     create: function(){      
-		createButtons();
-		game.stage.backgroundColor = '#ff4502';
+		initState('#ff4502');
 
 		wiper = game.add.sprite(0, 0, 'bigLogo');
 		wiper.enableBody = true;
