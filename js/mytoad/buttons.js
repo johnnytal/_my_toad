@@ -49,7 +49,9 @@ function playSound(item, kb){
 	var sound = buttonSounds[place];
 	
 	if (sound.isPlaying) sound.stop(); 
-    sound.play();  
+    
+    sound.play(); 
+    navigator.vibrate(75);   
 
     sprite.tint = colors[place];
     
@@ -60,8 +62,6 @@ function playSound(item, kb){
 	timeOuts[place] = setTimeout(function(){
     	 sprite.tint = 0xffffff;
     }, sound.durationMS);  
-    
-    navigator.vibrate(125);  
 }
 
 function stopSounds(item){

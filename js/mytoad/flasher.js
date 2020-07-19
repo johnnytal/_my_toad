@@ -234,13 +234,15 @@ function initState(_color){
 function goToState(_this){
 	if (isMobile()){
 		navigator.vibrate(0);
+
+		if (game.state.getCurrentState().key == 'Flasher'){
+			resetFlickerTimer();
+			flash_on = false;
+			flicker_on = false;
+		}
 		
 		if (window.plugins.flashlight.isSwitchedOn()){
 			window.plugins.flashlight.switchOff();
-		}
-		
-		if (game.state.getCurrentState().key == 'Flasher'){
-			resetFlickerTimer();
 		}
 	}
 

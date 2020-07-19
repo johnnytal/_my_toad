@@ -1,5 +1,5 @@
 var shaker = function(game){
-	DEFAULT_COLOR = converToHex(colors[8]);
+	DEFAULT_COLOR = converToHex(colors[1]);
 	FRONT_COLOR = converToHex(colors[6]);
 	BACK_COLOR = converToHex(colors[4]);	
 
@@ -9,10 +9,10 @@ var shaker = function(game){
 	lastAccel = 0;
 	lastAngle = 0;
 
-	MIN_ACCEL_F = 0.96; //0.8
-	MIN_ACCEL_B = 0.42; //0.35
+	MIN_ACCEL_F = 0.8; //0.8
+	MIN_ACCEL_B = 0.35; //0.35
 
-	MIN_ANGLE_F = 0.42; //0.35
+	MIN_ANGLE_F = 0.35; //0.35
 	MIN_ANGLE_B = 0.1; //0
 	
 	lastAction = '';
@@ -20,7 +20,7 @@ var shaker = function(game){
 
 shaker.prototype = {
     create: function(){  
-    	initState(converToHex(colors[8]));
+    	initState(DEFAULT_COLOR);
 
 		logo = game.add.image(0, 0, 'bigLogo');		       
         logo.anchor.set(.5, .5);
@@ -45,10 +45,10 @@ function readAcc(event){
 			event.accelerationIncludingGravity.z
 		) / 3;
 	
-		//if (!frontSfx.isPlaying && !backSfx.isPlaying){
+		if (!frontSfx.isPlaying && !backSfx.isPlaying){
 			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
 				if (lastAction != 'FRONT'){
-					frontSfx.volume = Math.abs(lastAccel - aveAccel) + 0.15;
+					frontSfx.volume = Math.abs(lastAccel - aveAccel);
 					frontSfx.play();
 					
 					flashShaker(FRONT_COLOR);
@@ -59,7 +59,7 @@ function readAcc(event){
 			
 			else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
 				if (lastAction != 'BACK'){
-					backSfx.volume = Math.abs(lastAccel - aveAccel) + 0.15;
+					backSfx.volume = Math.abs(lastAccel - aveAccel);
 					backSfx.play();
 					
 					flashShaker(BACK_COLOR);
@@ -67,9 +67,9 @@ function readAcc(event){
 					lastAction = 'BACK';
 				}
 			}
-		//}
+		}
 
-		debug_text_shaker.text = roundIt(Math.abs(lastAccel - aveAccel) + 0.15);
+		debug_text_shaker.text = roundIt(Math.abs(lastAccel - aveAccel));
 		
 		lastAngle = angle;
 		lastAccel = aveAccel;
