@@ -19,6 +19,7 @@ preloader.prototype = {
         game.load.image('logoSprite', 'assets/mytoad/images/logoSprite.png');
         game.load.image('logo', 'assets/mytoad/images/logo.png');
         game.load.image('bigLogo', 'assets/mytoad/images/bigLogo.png');
+        game.load.image('light_web', 'assets/mytoad/images/light_web.png');
         
         game.load.image('blue_sliderDown', 'assets/mytoad/images/blue_sliderDown.png');
         game.load.image('blue_sliderUp', 'assets/mytoad/images/blue_sliderUp.png');

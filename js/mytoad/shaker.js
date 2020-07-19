@@ -28,6 +28,8 @@ shaker.prototype = {
         logo.y = game.world.centerY - 100;
 
         debug_text_shaker = game.add.text(250, 850, "Shake it!", {font: '32px', fill: 'black'});
+        debug_text_shaker.anchor.set(.5, .5);
+        debug_text_shaker.x = game.world.centerX;
 
 		try{window.addEventListener('deviceorientation', function(){
 			angle = event.gamma;
@@ -69,7 +71,7 @@ function readAcc(event){
 			}
 		}
 
-		debug_text_shaker.text = roundIt(Math.abs(lastAccel - aveAccel));
+		//debug_text_shaker.text = roundIt(Math.abs(lastAccel - aveAccel));
 		
 		lastAngle = angle;
 		lastAccel = aveAccel;

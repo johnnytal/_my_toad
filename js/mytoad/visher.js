@@ -24,7 +24,8 @@ visher.prototype = {
         wiper.x = game.world.centerX;
         wiper.anchor.set(.5, 1);
 
-        debug_text_visher = game.add.text(250, 850, "Pan device right and left!", {font: '32px', fill: 'white'});
+        debug_text_visher = game.add.text(250, 850, 
+    	"Pan device right and left!\nTap to create ripples", {font: '36px', fill: 'white', align: 'center'});
         debug_text_visher.anchor.set(.5, .5);
         debug_text_visher.x = game.world.centerX;
 
@@ -32,6 +33,16 @@ visher.prototype = {
     },
     
     update: function(){
+        if (game.input.activePointer.isDown){
+            duration = game.input.activePointer.duration;
+
+            yAxis = game.input.activePointer.y;
+            xAxis = game.input.activePointer.x;
+            
+            drawRipple(xAxis, yAxis);
+        }
+			
+			
     	if (wiper.angle < -GO_ANGLE && !HU_STATE){ // converToHex(game.stage.backgroundColor) != converToHex(colors[9]
 			haSfx.play();
 			flashVisher();	
@@ -50,15 +61,35 @@ visher.prototype = {
     }
 };
 
+function drawRipple(_xAxis, _yAxis){
+    var ripplesGroup = game.add.group();
+	    
+    ripple = ripplesGroup.create(_xAxis, _yAxis, 'light_web');
+    ripple.anchor.setTo(0.5);
+
+	game.physics.enable(ripple, Phaser.Physics.ARCADE);
+	ripple.body.gravity.y = duration / 12;
+
+    game.add.tween(ripple.scale).to({x: duration / 500, y: duration / 500}, Math.cos(duration) * 16000, "Cubic", true);
+    game.add.tween(ripple).to({alpha: 0}, Math.cos(duration) * 16000, "Cubic", true).onComplete.add(function(ripple){   
+        ripple.destroy();  
+    },this);
+}
+
 function readVisherAccel(event){
 	if (game.state.getCurrentState().key == 'Visher'){
 		var AccelX = event.accelerationIncludingGravity.x;
 		
 		wiper.angle = AccelX * 3;
+	
 		bgHot.alpha = (10 - AccelX * 0.36) / 10;
-		bgCold.alpha = -(10 - AccelX * 0.36) / 10;
+		bgCold.alpha = 1 - bgHot.alpha;
 		
-		//debug_text_visher.text = roundIt(AccelX);
+		try{
+		    ripplesGroup.forEach(function(item) {
+				item.body.gravity.x = AccelX * 18;
+		    });
+		}catch(e){}
 	}
 }
 

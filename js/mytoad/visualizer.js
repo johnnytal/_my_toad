@@ -86,11 +86,11 @@ function webaudio_tooling_obj(){
 }
 
 function ascendLogos(StartX, startY){
-	logoAscend = game.add.sprite(StartX + 100, HEIGHT - startY, 'logoSprite');
+	logoAscend = game.add.sprite(StartX + 100, HEIGHT - startY, 'light_web');
 	logoAscend.scale.set(averageValue / 9, averageValue / 9);
 	logoAscend.tint = 0xffffff * (largestFreq / 100);
-	logoAscend.alpha = 0.65;
-
-    tween = game.add.tween(logoAscend).to( { alpha: 0 }, 350, "Linear", true);
+	
+	game.add.tween(logoAscend).to( { y: -100 }, 3600, "Linear", true);
+    tween = game.add.tween(logoAscend).to( { alpha: 0 }, 1200, "Linear", true);
     tween.onComplete.add(function(){ logoAscend.destroy; }, this);
 }
