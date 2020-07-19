@@ -18,10 +18,7 @@ visher.prototype = {
         wiper.x = game.world.centerX;
         wiper.anchor.set(.5, 1);
 
-        debug_text = game.add.text(250, 800, "Vish it!", {font: '32px', fill: 'white'});
-        
-    	huSfx = game.add.audio('hu', 1);
-		haSfx = game.add.audio('ha', 1);
+        debug_text_visher = game.add.text(250, 850, "Vish it!", {font: '32px', fill: 'white'});
 
     	window.addEventListener("devicemotion", readVisherAccel, true);
     },
@@ -44,7 +41,7 @@ function readVisherAccel(event){
 		var AccelX = event.accelerationIncludingGravity.x;
 		
 		wiper.angle = AccelX * 3;
-		debug_text.text = roundIt(AccelX);
+		debug_text_visher.text = roundIt(AccelX);
 	}
 }
 

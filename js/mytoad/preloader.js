@@ -25,15 +25,19 @@ preloader.prototype = {
         game.load.image('syncVib', 'assets/mytoad/images/syncVib.png');
         game.load.image('flickerBtn', 'assets/mytoad/images/flickerBtn.png');
         
-        game.load.audio('HE', 'assets/mytoad/audio/percz/HE.wav');
-        game.load.audio('HERE', 'assets/mytoad/audio/percz/HERE.wav');
-        game.load.audio('K8CUK9IK', 'assets/mytoad/audio/percz/K8CUK9IK.wav');
-        game.load.audio('K8ECR8', 'assets/mytoad/audio/percz/K8ECR8.wav');
-        game.load.audio('Snare602', 'assets/mytoad/audio/percz/Snare602.wav');
-        game.load.audio('SBB2', 'assets/mytoad/audio/percz/SBB2.wav');
-        game.load.audio('SEE', 'assets/mytoad/audio/percz/SEE.wav');
-        game.load.audio('RAA', 'assets/mytoad/audio/percz/RAA.wav');
-        game.load.audio('PY', 'assets/mytoad/audio/percz/PY.wav');
+        game.load.audio('bd', 'assets/mytoad/audio/percz/bd.mp3');
+        game.load.audio('clanck', 'assets/mytoad/audio/percz/clanck.mp3');
+        game.load.audio('clap', 'assets/mytoad/audio/percz/clap.mp3');
+        game.load.audio('cymble', 'assets/mytoad/audio/percz/cymble.mp3');
+        game.load.audio('hh', 'assets/mytoad/audio/percz/hh.mp3');
+        game.load.audio('knock', 'assets/mytoad/audio/percz/knock.mp3');
+        game.load.audio('pluck', 'assets/mytoad/audio/percz/pluck.mp3');
+        game.load.audio('scrape', 'assets/mytoad/audio/percz/scrape.mp3');
+        game.load.audio('snap', 'assets/mytoad/audio/percz/snap.mp3');
+        game.load.audio('snr', 'assets/mytoad/audio/percz/snr.mp3');
+        game.load.audio('vox1', 'assets/mytoad/audio/percz/vox1.mp3');
+        game.load.audio('vox2', 'assets/mytoad/audio/percz/vox2.mp3');
+        game.load.audio('vox3', 'assets/mytoad/audio/percz/vox3.mp3');
 
         game.load.audio('back', 'assets/mytoad/audio/back.mp3');
         game.load.audio('front', 'assets/mytoad/audio/front.mp3');
@@ -44,6 +48,7 @@ preloader.prototype = {
     },
     
     create: function(){
+    	loadSounds();
     	initPlugIns();
         this.game.state.start("Flasher"); 
     }

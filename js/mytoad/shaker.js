@@ -9,11 +9,11 @@ var shaker = function(game){
 	lastAccel = 0;
 	lastAngle = 0;
 
-	MIN_ACCEL_F = 0.55;
-	MIN_ACCEL_B = 0.25;
+	MIN_ACCEL_F = 0.45;
+	MIN_ACCEL_B = 0.2;
 
-	MIN_ANGLE_F = 0.25;
-	MIN_ANGLE_B = 0.05;
+	MIN_ANGLE_F = 0.2;
+	MIN_ANGLE_B = 0;
 	
 	lastAction = '';
 };
@@ -26,8 +26,7 @@ shaker.prototype = {
         logo.x = WIDTH / 2 - logo.width / 2;
         logo.y =  HEIGHT / 2 - logo.height / 2;
 
-		backSfx = game.add.audio('back');
-		frontSfx = game.add.audio('front');
+        debug_text_shaker = game.add.text(250, 850, "Shake it!", {font: '32px', fill: 'black'});
 
 		try{window.addEventListener('deviceorientation', function(){
 			angle = event.gamma;
@@ -45,7 +44,7 @@ function readAcc(event){
 			event.accelerationIncludingGravity.z
 		) / 3;
 	
-		if (!frontSfx.isPlaying && !backSfx.isPlaying){
+		//if (!frontSfx.isPlaying && !backSfx.isPlaying){
 			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
 				if (lastAction != 'FRONT'){
 					frontSfx.play();
@@ -65,7 +64,7 @@ function readAcc(event){
 					lastAction = 'BACK';
 				}
 			}
-		}
+		//}
 		
 		lastAngle = angle;
 		lastAccel = aveAccel;	

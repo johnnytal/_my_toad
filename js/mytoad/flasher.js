@@ -180,10 +180,28 @@ function resetFlickerTimer(){
 	}
 }
 
+
 /* general functions */
 
-function loadSounds(){
-	//TODO
+function loadSounds(){   
+	huSfx = game.add.audio('hu', 1);
+	haSfx = game.add.audio('ha', 1);
+
+	backSfx = game.add.audio('back');
+	frontSfx = game.add.audio('front');
+
+    sfx1 = game.add.audio('bd', 1);
+    sfx2 = game.add.audio('clanck', 1);
+    sfx3 = game.add.audio('clap', 1);
+    sfx4 = game.add.audio('cymble', 1);
+    sfx5 = game.add.audio('hh', 1);
+    sfx6 = game.add.audio('snr', 1);
+    sfx7 = game.add.audio('pluck', 1);
+    sfx8 = game.add.audio('scrape', 1);
+    sfx9 = game.add.audio('snap', 1);
+    sfx10 = game.add.audio('vox1', 1);
+    sfx11 = game.add.audio('vox2', 1);
+    sfx12 = game.add.audio('vox3', 1); 
 }
 
 function initState(_color){    	
@@ -208,6 +226,14 @@ function initState(_color){
 }
 
 function goToState(_this){
+	if (isMobile()){
+		navigator.vibrate(0);
+		
+		if(window.plugins.flashlight.isSwitchedOn()){
+			window.plugins.flashlight.switchOff();
+		}
+	}
+
 	state = _this.key.slice(4);
     game.state.start(state);
 }
