@@ -1,10 +1,10 @@
 var visualizer = function(game){
-	backgroundColors = [0xff0000, 0x10ff00, 0x1000ff];
+	N_OF_COLOR_BTNS = 3;
 };
 
 visualizer.prototype = {
     create: function(){      
-		initState('#ff0000');
+		initState(converToHex(colors[0]));
 
 		middleLogo = game.add.image(0, 0, 'bigLogo');
 		middleLogo.anchor.set(.5, .5);
@@ -27,19 +27,18 @@ visualizer.prototype = {
 function createColorBtns(){        
     soundBtnsGroup = game.add.physicsGroup(Phaser.Physics.ARCADE);
 	        
-    for(b = 0; b < backgroundColors.length; b++){
-    	soundButtons[b] = soundBtnsGroup.create(28 + (220 * b), 200, 'logo');
+    for(b = 0; b < N_OF_COLOR_BTNS; b++){
+    	soundButtons[b] = soundBtnsGroup.create(60 + (220 * b), 200, 'logo');
     	soundButtons[b].inputEnabled = true;
     	soundButtons[b].name = b;
-    	soundButtons[b].tint = backgroundColors[b];
+    	soundButtons[b].tint = colors[b];
 
 		soundButtons[b].events.onInputDown.add(changeColor, this);  
     }
 }
 
 function changeColor(_this){
-	var color = (backgroundColors[_this.name]).toString(16);
-	game.stage.backgroundColor = color;
+	game.stage.backgroundColor = converToHex(colors[_this.name]);
 }
 
 function startMic(){

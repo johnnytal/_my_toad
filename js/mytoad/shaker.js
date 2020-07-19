@@ -9,10 +9,10 @@ var shaker = function(game){
 	lastAccel = 0;
 	lastAngle = 0;
 
-	MIN_ACCEL_F = 0.45;
-	MIN_ACCEL_B = 0.2;
+	MIN_ACCEL_F = 0.8;
+	MIN_ACCEL_B = 0.35;
 
-	MIN_ANGLE_F = 0.2;
+	MIN_ANGLE_F = 0.35;
 	MIN_ANGLE_B = 0;
 	
 	lastAction = '';
@@ -20,11 +20,12 @@ var shaker = function(game){
 
 shaker.prototype = {
     create: function(){  
-    	initState(DEFAULT_COLOR);
+    	initState(converToHex(colors[8]));
 
-		logo = game.add.image(0, 0, 'bigLogo');
-        logo.x = WIDTH / 2 - logo.width / 2;
-        logo.y =  HEIGHT / 2 - logo.height / 2;
+		logo = game.add.image(0, 0, 'bigLogo');		       
+        logo.anchor.set(.5, .5);
+        logo.x = game.world.centerX;
+        logo.y = game.world.centerY - 100;
 
         debug_text_shaker = game.add.text(250, 850, "Shake it!", {font: '32px', fill: 'black'});
 
@@ -48,7 +49,7 @@ function readAcc(event){
 			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
 				if (lastAction != 'FRONT'){
 					frontSfx.play();
-					frontSfx.volume = aveAccel;
+					frontSfx.volume = Math.abs(lastAccel - aveAccel) + 0.15;
 					flashShaker(FRONT_COLOR);
 					
 					lastAction = 'FRONT';
@@ -58,16 +59,18 @@ function readAcc(event){
 			else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
 				if (lastAction != 'BACK'){
 					backSfx.play();
-					backSfx.volume = aveAccel;
+					backSfx.volume = Math.abs(lastAccel - aveAccel) + 0.15;
 					flashShaker(BACK_COLOR);
 					
 					lastAction = 'BACK';
 				}
 			}
 		//}
-		
+
 		lastAngle = angle;
 		lastAccel = aveAccel;	
+		
+		debug_text_shaker.text = roundIt(Math.abs(lastAccel - aveAccel) + 0.15);
 	}
 }
 

@@ -2,20 +2,18 @@ var buttons = function(game){
 	gate_mode = false; 
 	soundButtons = [];
 	timeOuts = [];	
-    colors = [0x00a5e3, 0x8dd7bf, 0xff96c5, 0xff5768, 0xffbf65, 0xfc6238,
-    0xffd872, 0xf2d4cc, 0xe77577, 0x6c88c4, 0xff828b, 0x00b0ba, 0x00cdac];
 };
 
 buttons.prototype = {
     create: function(){      
-		initState('#ffdacc');
+		initState(converToHex(colors[7]));
 
     	game.input.addPointer();
     	game.input.addPointer();
 
         mode_button = this.add.image(0, 0, 'cont');
         mode_button.frame = 1;
-        mode_button.y = HEIGHT - mode_button.height - 100;
+        mode_button.y = 60;
         mode_button.x = WIDTH - mode_button.width - 50;
         
         mode_button.inputEnabled = true;
@@ -37,7 +35,7 @@ function createSoundBtns(){
     soundBtnsGroup = game.add.physicsGroup(Phaser.Physics.ARCADE);
 	        
     for(b = 0; b < SOUND_BUTTONS_N; b++){
-    	soundButtons[b] = soundBtnsGroup.create(28 + (200 * (b%3)), 200 + (Math.floor(b/3) * 200), 'logo');
+    	soundButtons[b] = soundBtnsGroup.create(70 + (200 * (b%3)), 200 + (Math.floor(b/3) * 200), 'logo');
     	soundButtons[b].inputEnabled = true;
 
 		soundButtons[b].events.onInputDown.add(playSound, this);

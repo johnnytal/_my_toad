@@ -7,7 +7,7 @@ var visher = function(game){
 
 visher.prototype = {
     create: function(){      
-		initState('#ff4502');
+		initState(converToHex(colors[11]));
 
 		wiper = game.add.sprite(0, 0, 'bigLogo');
 		wiper.enableBody = true;

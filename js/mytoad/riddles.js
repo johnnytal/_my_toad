@@ -5,15 +5,16 @@ var riddles = function(game){
 		"Tap anywhere",
 		"Tap the toad", 
 		"Tilt Left",
-		"Flash!"
+		"Flash!",
+		"PLACEHOLDER"
 	];
 };
 
 riddles.prototype = {
     create: function(){      
-		initState('#557744');
+		initState(converToHex(colors[7]));
 
-        riddleText = game.add.text(250, 300, riddle_instructions[riddles_solved], {font: '32px', fill: 'white'});
+        riddleText = game.add.text(250, 300, riddle_instructions[riddles_solved], {font: '32px', fill: 'black'});
         
     	window.addEventListener("devicemotion", readRiddlesAccel, true);
     },
@@ -22,6 +23,7 @@ riddles.prototype = {
         if (riddles_solved == 0 && game.input.activePointer.isDown){
             levelUp();
         }
+        
         else if (riddles_solved == 3){
         	if(window.plugins.flashlight.isSwitchedOn()){
         		levelUp();
@@ -35,16 +37,15 @@ riddles.prototype = {
 
 function readRiddlesAccel(){
 	if (game.state.getCurrentState().key == 'Riddles'){
-		if (riddles_solved == 2 && event.accelerationIncludingGravity.x > 9){
+		if (riddles_solved == 2 && event.accelerationIncludingGravity.x < -9){
 			levelUp();
 		}
 	}
 }
 
 function levelUp(){
-	toad = game.add.image(0, 120, 'logoSprite');
+	toad = game.add.image(70 + (80 * (riddles_solved%3)), 360 + (Math.floor(riddles_solved/3) * 200), 'logoSprite');
 	toad.scale.set(1.5, 1.5);
-	toad.x = riddles_solved * toad.width;
 	toad.inputEnabled = true;
 	toad.events.onInputDown.add(function(){
 		if (riddles_solved == 1){

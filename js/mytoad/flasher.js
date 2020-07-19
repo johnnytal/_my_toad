@@ -17,7 +17,7 @@ var flasher = function(game){
 
 flasher.prototype = {
     create: function(){  
-    	initState('#ffffe0');
+    	initState(converToHex(colors[6]));
     	
     	game.add.image(0,  HEIGHT / 2 + 35, 'seperator').scale.set(4, 2);
 		
@@ -32,21 +32,21 @@ flasher.prototype = {
 			stopVibrate();
 		}, this);
 		    
-		syncVibBtn = game.add.sprite(btn_vibrate.x - 350, 850, 'syncVib');
+		syncVibBtn = game.add.sprite(btn_vibrate.x - 375, 800, 'syncVib');
 		syncVibBtn.scale.set(1.2, 1.2);
 		syncVibBtn.inputEnabled = true;
 		syncVibBtn.events.onInputDown.add(syncVibrator, this);
 		
-		flickerBtn = game.add.sprite(450, 200, 'flickerBtn');
-		flickerBtn.scale.set(1.2, 1.2);
+		flickerBtn = game.add.sprite(420, 200, 'flickerBtn');
+		flickerBtn.scale.set(1.6, 1.4);
 		flickerBtn.inputEnabled = true;
 		flickerBtn.events.onInputDown.add(flicker, this);
 
-		rateText = game.add.text(140, 430, 'Rate: ' + flickingRate, {
+		rateText = game.add.text(100, 400, 'Rate: ' + flickingRate + 'ms', {
             font: '37px', fill: 'blue', fontWeight: 'bold', align: 'center'
         });
   		    
-		btn_ms_up = game.add.sprite(rateText.x + 17, rateText.y - 150, 'blue_sliderUp');
+		btn_ms_up = game.add.sprite(rateText.x + 40, rateText.y - 150, 'blue_sliderUp');
 		btn_ms_up.inputEnabled = true;
 		btn_ms_up.scale.set(3.2, 3.2);
 		btn_ms_up.events.onInputDown.add(change_flicker, this);
@@ -54,7 +54,7 @@ flasher.prototype = {
 			btn_ms_up.tint = 0xffffff;
 		}, this);
 		
-		btn_ms_down = game.add.sprite(rateText.x + 17,  rateText.y + 60, 'blue_sliderDown');
+		btn_ms_down = game.add.sprite(rateText.x + 40,  rateText.y + 60, 'blue_sliderDown');
 		btn_ms_down.inputEnabled = true;
 		btn_ms_down.scale.set(3.2, 3.2);
 		btn_ms_down.events.onInputDown.add(change_flicker, this);
@@ -91,7 +91,7 @@ function change_flicker(_this){
 		else{ flickingRate = MAX_RATE; }
 	}
 
-	rateText.text = "Rate: " + flickingRate;
+	rateText.text = "Rate: " + flickingRate + 'ms';
 	_this.tint = CHOSEN_TINT;
 
 	start_flicking();
@@ -111,12 +111,14 @@ function flash(_this){
 	}
 	else{
 		_this.tint = 0xffffff;
+		flickerBtn.tint = 0xffffff;
 
 		if (isMobile()){
 			window.plugins.flashlight.switchOff();
 		}
 		
 		flash_on = false;
+		flicker_on = false;
 		
 		if (flicker_on) resetFlickerTimer();
 	}
@@ -206,15 +208,16 @@ function loadSounds(){
 
 function initState(_color){    	
 	bg = game.add.image(0, 0, 'bg');
-	bg.alpha = 0.4;
-	
+	bg.alpha = 0.8;
+
 	game.stage.backgroundColor = _color;
     	
     buttons = game.add.group();
     
     for (n = 0; n < btn_keys.length; n++){
-    	btn = buttons.create(n % 3 * WIDTH / 3, 0, btn_keys[n]);
-    	if (n > 2) btn.y = btn.height;
+    	btn = buttons.create(10 + (n % 3) * (WIDTH / 3), 800, btn_keys[n]);
+    	if (n <= 2) btn.y = HEIGHT - btn.height * 2 - 60;
+    	else { btn.y = HEIGHT - btn.height - 40; }
     	
         btn.inputEnabled = true;
 	    btn.events.onInputDown.add(goToState, this);
@@ -223,6 +226,9 @@ function initState(_color){
 	    	btn.tint = CHOSEN_TINT;
 	    }
     }
+    
+    	game.add.image(0,  HEIGHT - btn.height - 160, 'seperator').scale.set(4, 1.5);
+
 }
 
 function goToState(_this){
@@ -236,6 +242,10 @@ function goToState(_this){
 
 	state = _this.key.slice(4);
     game.state.start(state);
+}
+
+function converToHex(_color){
+	return _color.toString(16);
 }
 
 function isMobile(){

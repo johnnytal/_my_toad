@@ -62,8 +62,9 @@ function start_stream(stream){
 	
 			 //dominance = largestValue / averageValue;
 			 
-			 bg.alpha = largestValue / 100;
-
+			 bg.tint = colors[largestFreq % 12];
+ 			 bg.alpha = largestValue / 250;
+ 			
 			 middleLogo.scale.set(1 - averageValue / 100, 1 - averageValue / 100);
 			 ascendLogos(largestFreq * (game.scale.width / 120), averageValue * ((game.scale.height - 200) / 20));
 			 
