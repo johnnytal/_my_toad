@@ -1,6 +1,6 @@
 var flasher = function(game){
 	btn_keys = ['btn_Flasher', 'btn_Visualizer', 'btn_Buttons', 'btn_Shaker', 'btn_Visher', 'btn_Riddles'];
-	CHOSEN_TINT = 0xf55faa5;
+	CHOSEN_TINT = colors[1];
 	state = btn_keys[0].slice(4);
 	
 	flash_on = false;
@@ -46,7 +46,7 @@ flasher.prototype = {
             font: '37px', fill: 'blue', fontWeight: 'bold', align: 'center'
         });
   		    
-		btn_ms_up = game.add.sprite(rateText.x + 40, rateText.y - 150, 'blue_sliderUp');
+		btn_ms_up = game.add.sprite(rateText.x + 40, rateText.y - 155, 'blue_sliderUp');
 		btn_ms_up.inputEnabled = true;
 		btn_ms_up.scale.set(3.2, 3.2);
 		btn_ms_up.events.onInputDown.add(change_flicker, this);
@@ -54,7 +54,7 @@ flasher.prototype = {
 			btn_ms_up.tint = 0xffffff;
 		}, this);
 		
-		btn_ms_down = game.add.sprite(rateText.x + 40,  rateText.y + 60, 'blue_sliderDown');
+		btn_ms_down = game.add.sprite(rateText.x + 40,  rateText.y + 65, 'blue_sliderDown');
 		btn_ms_down.inputEnabled = true;
 		btn_ms_down.scale.set(3.2, 3.2);
 		btn_ms_down.events.onInputDown.add(change_flicker, this);
@@ -110,17 +110,17 @@ function flash(_this){
 		start_flicking();
 	}
 	else{
-		_this.tint = 0xffffff;
-		flickerBtn.tint = 0xffffff;
-
 		if (isMobile()){
 			window.plugins.flashlight.switchOff();
 		}
+
+		if (flicker_on) resetFlickerTimer();
+	
+		_this.tint = 0xffffff;
+		flickerBtn.tint = 0xffffff;
 		
 		flash_on = false;
 		flicker_on = false;
-		
-		if (flicker_on) resetFlickerTimer();
 	}
 }
 
@@ -235,8 +235,12 @@ function goToState(_this){
 	if (isMobile()){
 		navigator.vibrate(0);
 		
-		if(window.plugins.flashlight.isSwitchedOn()){
+		if (window.plugins.flashlight.isSwitchedOn()){
 			window.plugins.flashlight.switchOff();
+		}
+		
+		if (game.state.getCurrentState().key == 'Flasher'){
+			resetFlickerTimer();
 		}
 	}
 

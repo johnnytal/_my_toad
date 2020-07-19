@@ -4,6 +4,9 @@ document.addEventListener("deviceready", start, false);
 function start(){
     WIDTH = 720; 
     HEIGHT = 1274; 
+    
+    colors = [0x10a5e3, 0x8dd7bf, 0xff96c5, 0xff5768, 0xffbf65, 0xfc6238,
+	0xffd872, 0xf2d4cc, 0xe77577, 0x6c88c4, 0xff828b, 0x10b0ba, 0x10cdac];
 
     game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, "container");  
 

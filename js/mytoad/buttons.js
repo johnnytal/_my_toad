@@ -39,10 +39,7 @@ function createSoundBtns(){
     	soundButtons[b].inputEnabled = true;
 
 		soundButtons[b].events.onInputDown.add(playSound, this);
-        
-        soundButtons[b].events.onInputUp.add(function(){
-            if (gate_mode) stopSounds();
-        }, this); 
+        soundButtons[b].events.onInputUp.add(stopSounds, this); 
     }
 }
 
@@ -67,9 +64,16 @@ function playSound(item, kb){
     navigator.vibrate(125);  
 }
 
-function stopSounds(){
-    for (n = 0; n < sounds.length; n++){
-        sounds[n].stop();
+function stopSounds(item){
+	if (gate_mode){
+		var place = soundButtons.indexOf(item);
+		var sprite = soundButtons[place];
+		var sound = buttonSounds[place];
+
+    	if (sound.isPlaying){
+	        sound.stop();
+	        sprite.tint = 0xffffff;
+        }  
     }   
 }
 

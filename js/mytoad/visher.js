@@ -1,8 +1,8 @@
 var visher = function(game){
 	GO_ANGLE = 25; // Visher angle that makes the sounds trigger
 	
-	HU_COLOR = '#ff00ff';
-	HA_COLOR = '#f0ff0f';
+	HU_COLOR = converToHex(colors[9]);
+	HA_COLOR = converToHex(colors[11]);
 };
 
 visher.prototype = {
@@ -27,11 +27,13 @@ visher.prototype = {
     	if (wiper.angle < -GO_ANGLE && game.stage.backgroundColor != 16711935){
 			haSfx.play();
 			flashVisher(HU_COLOR);	
+			debug_text_visher.text = 'HU!';
 		}
     	
     	else if (wiper.angle > GO_ANGLE && game.stage.backgroundColor != 15793935){    		
 			huSfx.play();
 			flashVisher(HA_COLOR);
+			debug_text_visher.text = 'HA!';
 		}	
     }
 };
@@ -49,7 +51,7 @@ function flashVisher(_color){
 	window.plugins.flashlight.switchOn(); //flash
 	navigator.vibrate(40); //vibrate
 	game.stage.backgroundColor = _color; //change color
-	
+
 	setTimeout(function(){
 		window.plugins.flashlight.switchOff();
 	}, 100);	

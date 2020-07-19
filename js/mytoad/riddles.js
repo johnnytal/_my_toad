@@ -5,7 +5,7 @@ var riddles = function(game){
 		"Tap anywhere",
 		"Tap the toad", 
 		"Tilt Left",
-		"Flash!",
+		"Don't tap anywhere",
 		"PLACEHOLDER"
 	];
 };
@@ -25,19 +25,16 @@ riddles.prototype = {
         }
         
         else if (riddles_solved == 3){
-        	if(window.plugins.flashlight.isSwitchedOn()){
-        		levelUp();
-        		setTimeout(function(){
-        			window.plugins.flashlight.switchOff();
-        		}, 1000);
-        	}
+			setTimeout(function(){
+				levelUp();
+			}, 5000);
         }
     }
 };
 
 function readRiddlesAccel(){
 	if (game.state.getCurrentState().key == 'Riddles'){
-		if (riddles_solved == 2 && event.accelerationIncludingGravity.x < -9){
+		if (riddles_solved == 2 && event.accelerationIncludingGravity.x > 9){
 			levelUp();
 		}
 	}

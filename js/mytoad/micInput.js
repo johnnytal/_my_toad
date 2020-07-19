@@ -66,7 +66,7 @@ function start_stream(stream){
  			 bg.alpha = largestValue / 250;
  			
 			 middleLogo.scale.set(1 - averageValue / 100, 1 - averageValue / 100);
-			 ascendLogos(largestFreq * (game.scale.width / 120), averageValue * ((game.scale.height - 200) / 20));
+			 ascendLogos(largestFreq * (game.scale.width / 120), 160 + averageValue * (game.scale.height / 25));
 			 
 	  	 	 lastAverageValue = averageValue;
   	 	}

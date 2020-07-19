@@ -30,7 +30,6 @@ preloader.prototype = {
         game.load.audio('clap', 'assets/mytoad/audio/percz/clap.mp3');
         game.load.audio('cymble', 'assets/mytoad/audio/percz/cymble.mp3');
         game.load.audio('hh', 'assets/mytoad/audio/percz/hh.mp3');
-        game.load.audio('knock', 'assets/mytoad/audio/percz/knock.mp3');
         game.load.audio('pluck', 'assets/mytoad/audio/percz/pluck.mp3');
         game.load.audio('scrape', 'assets/mytoad/audio/percz/scrape.mp3');
         game.load.audio('snap', 'assets/mytoad/audio/percz/snap.mp3');
@@ -48,9 +47,6 @@ preloader.prototype = {
     },
     
     create: function(){
-	    colors = [0x10a5e3, 0x8dd7bf, 0xff96c5, 0xff5768, 0xffbf65, 0xfc6238,
-    	0xffd872, 0xf2d4cc, 0xe77577, 0x6c88c4, 0xff828b, 0x10b0ba, 0x10cdac];
-    
     	loadSounds();
     	initPlugIns();
         this.game.state.start("Flasher"); 
