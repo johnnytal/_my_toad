@@ -24,13 +24,13 @@ visher.prototype = {
     },
     
     update: function(){
-    	if (wiper.angle < -GO_ANGLE && game.stage.backgroundColor != 16711935){
+    	if (wiper.angle < -GO_ANGLE && converToHex(game.stage.backgroundColor) != converToHex(colors[9])){
 			haSfx.play();
 			flashVisher(HU_COLOR);	
 			debug_text_visher.text = 'HU!';
 		}
     	
-    	else if (wiper.angle > GO_ANGLE && game.stage.backgroundColor != 15793935){    		
+    	else if (wiper.angle > GO_ANGLE && converToHex(game.stage.backgroundColor) != converToHex(colors[11])){    		
 			huSfx.play();
 			flashVisher(HA_COLOR);
 			debug_text_visher.text = 'HA!';
