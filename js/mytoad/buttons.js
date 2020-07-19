@@ -6,7 +6,7 @@ var buttons = function(game){
 
 buttons.prototype = {
     create: function(){      
-		initState(converToHex(colors[7]));
+		initState(converToHex(colors[5]));
 
     	game.input.addPointer();
     	game.input.addPointer();

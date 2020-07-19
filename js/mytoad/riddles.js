@@ -23,12 +23,6 @@ riddles.prototype = {
         if (riddles_solved == 0 && game.input.activePointer.isDown){
             levelUp();
         }
-        
-        else if (riddles_solved == 3){
-			setTimeout(function(){
-				levelUp();
-			}, 5000);
-        }
     }
 };
 
@@ -41,8 +35,6 @@ function readRiddlesAccel(){
 }
 
 function levelUp(){
-    riddles_solved++;
-	  
 	toad = game.add.image(70 + (80 * (riddles_solved%3)), 360 + (Math.floor(riddles_solved/3) * 200), 'logoSprite');
 	toad.scale.set(1.5, 1.5);
 	toad.inputEnabled = true;
@@ -51,6 +43,13 @@ function levelUp(){
 			levelUp();
 		}
 	}, this);
-
+	
+	riddles_solved++;
     riddleText.text = riddle_instructions[riddles_solved];
+
+	if (riddles_solved == 3){
+		setTimeout(function(){
+			levelUp();
+		}, 5000);
+    }
 }
