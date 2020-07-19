@@ -6,7 +6,10 @@ var riddles = function(game){
 		"Tap the toad", 
 		"Tilt Left",
 		"Don't tap anywhere",
-		"PLACEHOLDER"
+		"PLACEHOLDER",
+		"Turn off the light",
+		"Volume up",
+		"4 fingers"
 	];
 };
 
@@ -35,7 +38,7 @@ function readRiddlesAccel(){
 }
 
 function levelUp(){
-	toad = game.add.image(70 + (80 * (riddles_solved%3)), 360 + (Math.floor(riddles_solved/3) * 200), 'logoSprite');
+	toad = game.add.image(70 + (80 * (riddles_solved%6)), 360 + (Math.floor(riddles_solved/6) * 200), 'logoSprite');
 	toad.scale.set(1.5, 1.5);
 	toad.inputEnabled = true;
 	toad.events.onInputDown.add(function(){

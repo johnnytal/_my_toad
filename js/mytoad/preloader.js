@@ -12,6 +12,9 @@ preloader.prototype = {
         game.load.image('lightBtn', 'assets/mytoad/images/lightBtn.png');
         game.load.image('vibrateBtn', 'assets/mytoad/images/vibrateBtn.png');
         
+        game.load.image('gradientHot', 'assets/mytoad/images/color-gradient-background.jpg');
+        game.load.image('gradientCold', 'assets/mytoad/images/color-gradient-background_cold.jpg');
+        
         game.load.image('bg', 'assets/mytoad/images/bg.png');
         game.load.image('logoSprite', 'assets/mytoad/images/logoSprite.png');
         game.load.image('logo', 'assets/mytoad/images/logo.png');
