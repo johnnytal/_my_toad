@@ -62,7 +62,7 @@ visher.prototype = {
 };
 
 function drawRipple(_xAxis, _yAxis){
-    var ripplesGroup = game.add.group();
+    ripplesGroup = game.add.group();
 	    
     ripple = ripplesGroup.create(_xAxis, _yAxis, 'light_web');
     ripple.anchor.setTo(0.5);
@@ -81,9 +81,12 @@ function readVisherAccel(event){
 		var AccelX = event.accelerationIncludingGravity.x;
 		
 		wiper.angle = AccelX * 3;
-	
-		bgHot.alpha = (10 - AccelX * 0.36) / 10;
-		bgCold.alpha = 1 - bgHot.alpha;
+		
+		var alphaVal = (AccelX + 10) / 20;
+		if (alphaVal < 0) alphaVal = 0;
+		
+		bgHot.alpha = alphaVal;
+		bgCold.alpha = 1 - alphaVal;
 		
 		try{
 		    ripplesGroup.forEach(function(item) {
