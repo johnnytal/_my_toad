@@ -218,8 +218,10 @@ function initState(_color){
     
     for (n = 0; n < btn_keys.length; n++){
     	btn = buttons.create(10 + (n % 3) * (WIDTH / 3), 800, btn_keys[n]);
-    	if (n <= 2) btn.y = HEIGHT - btn.height * 2 - 60;
+    	if (n <= 2) btn.y = HEIGHT - btn.height * 2 - 70;
     	else { btn.y = HEIGHT - btn.height - 40; }
+    	
+    	btn.scale.set(1, 1.15);
     	
         btn.inputEnabled = true;
 	    btn.events.onInputDown.add(goToState, this);

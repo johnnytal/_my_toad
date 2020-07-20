@@ -52,9 +52,9 @@ visher.prototype = {
 			haSfx.play();
 			flashVisher();	
 			
-			game.add.tween(toad).to({x: WIDTH + 250}, 350, "Cubic", true);	
-			game.add.tween(fun).to({x: 50}, 350, "Cubic", true);
-			
+			game.add.tween(toad).to({x: 500}, 350, "Cubic", true);	
+			game.add.tween(fun).to({x: -250}, 350, "Cubic", true);
+
 			HA_STATE = false;
 			HU_STATE = true;
 		}
@@ -63,8 +63,8 @@ visher.prototype = {
 			huSfx.play();
 			flashVisher();
 			
-			game.add.tween(toad).to({x: 500}, 350, "Cubic", true);	
-			game.add.tween(fun).to({x: -250}, 350, "Cubic", true);
+			game.add.tween(toad).to({x: WIDTH + 250}, 350, "Cubic", true);	
+			game.add.tween(fun).to({x: 50}, 350, "Cubic", true);
 
 			HA_STATE = true;
 			HU_STATE = false;

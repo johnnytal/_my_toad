@@ -14,7 +14,9 @@ var riddles = function(game){
 };
 
 riddles.prototype = {
-    create: function(){      
+    create: function(){    
+    	riddles_solved = 0;
+    	  
 		initState(converToHex(colors[7]));
 
         riddleText = game.add.text(250, 300, riddle_instructions[riddles_solved], {font: '32px', fill: 'black'});
