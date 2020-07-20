@@ -64,23 +64,6 @@ flasher.prototype = {
     }
 };
 
-function syncVibrator(_this){
-	if (!syncing_vib){
-		_this.tint = CHOSEN_TINT;
-		syncing_vib = true;
-		
-		btn_vibrate.tint = 0x777777;
-		btn_vibrate.inputEnabled = false;
-	}
-	else{
-		_this.tint = 0xffffff;
-		syncing_vib = false;
-		
-		btn_vibrate.tint = 0xffffff;
-		btn_vibrate.inputEnabled = true;
-	}
-}
-
 function change_flicker(_this){
 	if (_this.key == 'blue_sliderUp'){
 		if (flickingRate < MAX_RATE) flickingRate += MIN_RATE;
@@ -95,6 +78,8 @@ function change_flicker(_this){
 	_this.tint = CHOSEN_TINT;
 
 	start_flicking();
+	
+	click1.play();
 }
 
 function flash(_this){
@@ -122,6 +107,8 @@ function flash(_this){
 		flash_on = false;
 		flicker_on = false;
 	}
+	
+	click2.play();
 }
 
 function flicker(_this){
@@ -143,6 +130,7 @@ function flicker(_this){
 	}
 	
 	start_flicking();
+	click2.play();
 }
 
 function start_flicking(){
@@ -168,6 +156,27 @@ function vibrator(_this){
 	if (!syncing_vib){
 		navigator.vibrate(120000);
 	}
+	
+	click3.play();
+}
+
+function syncVibrator(_this){
+	if (!syncing_vib){
+		_this.tint = CHOSEN_TINT;
+		syncing_vib = true;
+		
+		btn_vibrate.tint = 0x777777;
+		btn_vibrate.inputEnabled = false;
+	}
+	else{
+		_this.tint = 0xffffff;
+		syncing_vib = false;
+		
+		btn_vibrate.tint = 0xffffff;
+		btn_vibrate.inputEnabled = true;
+	}
+	
+	click3.play();
 }
 
 function stopVibrate(){
@@ -196,6 +205,10 @@ function loadSounds(){
 			
 	bellSounds = [bellFsfx, bellBsfx];
 	shakerSounds = [shakerFsfx, shakerBsfx];
+	
+    click1 = game.add.audio('clanck', 0.2);
+    click2 = game.add.audio('clap', 0.2);
+    click3 = game.add.audio('scrape', 0.2);
 
     sfx1 = game.add.audio('bd', 1);
     sfx2 = game.add.audio('clanck', 1);
@@ -209,6 +222,19 @@ function loadSounds(){
     sfx10 = game.add.audio('vox1', 1);
     sfx11 = game.add.audio('vox2', 1);
     sfx12 = game.add.audio('vox3', 1); 
+    
+    note1 = game.add.audio('C4');
+    note2 = game.add.audio('Db4');
+    note3 = game.add.audio('D4');
+    note4 = game.add.audio('Eb4');
+    note5 = game.add.audio('E4');
+    note6 = game.add.audio('F4');
+    note7 = game.add.audio('Gb4');
+    note8 = game.add.audio('G4');
+    note9 = game.add.audio('Ab4');
+    note10 = game.add.audio('A4');
+    note11 = game.add.audio('Bb4');
+    note12 = game.add.audio('B4');
 }
 
 function initState(_color){    	
@@ -258,7 +284,7 @@ function goToState(_this){
 	}
 	
 	if (game.state.getCurrentState().key == 'Riddles'){
-		clearTimeout(riddleTimer);
+		try{clearTimeout(riddleTimer);} catch(e){};
 	}
 
 	state = _this.key.slice(4);

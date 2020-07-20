@@ -1,5 +1,6 @@
 var visualizer = function(game){
 	N_OF_COLOR_BTNS = 3;
+	state = 0;
 };
 
 visualizer.prototype = {
@@ -39,6 +40,8 @@ function createColorBtns(){
 
 function changeColor(_this){
 	game.stage.backgroundColor = converToHex(colors[_this.name]);
+	click2.play();
+	state = _this.name;
 }
 
 function startMic(){

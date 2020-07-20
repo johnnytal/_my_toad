@@ -22,6 +22,7 @@ preloader.prototype = {
         game.load.image('logo', 'assets/mytoad/images/logo.png');
         game.load.image('bigLogo', 'assets/mytoad/images/bigLogo.png');
         game.load.image('light_web', 'assets/mytoad/images/light_web.png');
+        game.load.image('drop', 'assets/mytoad/images/raemi-Drop.png');
         
         game.load.image('blue_sliderDown', 'assets/mytoad/images/blue_sliderDown.png');
         game.load.image('blue_sliderUp', 'assets/mytoad/images/blue_sliderUp.png');
@@ -44,6 +45,19 @@ preloader.prototype = {
         game.load.audio('vox1', 'assets/mytoad/audio/percz/vox1.mp3');
         game.load.audio('vox2', 'assets/mytoad/audio/percz/vox2.mp3');
         game.load.audio('vox3', 'assets/mytoad/audio/percz/vox3.mp3');
+        
+        game.load.audio('C4', 'assets/mytoad/audio/notes/C4.mp3');
+        game.load.audio('Db4', 'assets/mytoad/audio/notes/Db4.mp3');
+        game.load.audio('D4', 'assets/mytoad/audio/notes/D4.mp3');
+        game.load.audio('Eb4', 'assets/mytoad/audio/notes/Eb4.mp3');
+        game.load.audio('E4', 'assets/mytoad/audio/notes/E4.mp3');
+        game.load.audio('F4', 'assets/mytoad/audio/notes/F4.mp3');
+        game.load.audio('Gb4', 'assets/mytoad/audio/notes/Gb4.mp3');
+        game.load.audio('G4', 'assets/mytoad/audio/notes/G4.mp3');
+        game.load.audio('Ab4', 'assets/mytoad/audio/notes/Ab4.mp3');
+        game.load.audio('A4', 'assets/mytoad/audio/notes/A4.mp3');
+        game.load.audio('Bb4', 'assets/mytoad/audio/notes/Bb4.mp3');
+        game.load.audio('B4', 'assets/mytoad/audio/notes/B4.mp3');
 
         game.load.audio('back', 'assets/mytoad/audio/back.mp3');
         game.load.audio('front', 'assets/mytoad/audio/front.mp3');
@@ -54,6 +68,7 @@ preloader.prototype = {
         game.load.audio('ha', 'assets/mytoad/audio/ha.mp3');
         
         game.load.spritesheet("cont", "assets/mytoad/images/cont.png", 325/2, 102);
+        game.load.spritesheet("noteBtn", "assets/mytoad/images/note.png", 325/2, 102);
     },
     
     create: function(){

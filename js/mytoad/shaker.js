@@ -54,9 +54,9 @@ function startGUI() {
     gui.add(config, 'MIN_ANGLE_F', 0, 0.7).name('min angle fwd');
     gui.add(config, 'MIN_ANGLE_B', 0, 0.5).name('min angle bck');
     gui.add(config, 'VOL_FACTOR').name('Volume factor');
-    //gui.add(config, 'SOUND', { 'Bells': bellSounds, 'Shaker': shakerSounds});
+    //gui.add(config, 'SOUND').name('Volume factor').onFinishChange(updateKeywords);
 
-    if (isMobile()) gui.close();
+   // if (isMobile()) gui.close();
 }
 
 function readAcc(event){

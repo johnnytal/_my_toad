@@ -30,7 +30,7 @@ visher.prototype = {
         wiper.anchor.set(.5, 1);
 
         debug_text_visher = game.add.text(250, 850, 
-    	"Pan device right and left!\nTap to create ripples", {font: '36px', fill: 'white', align: 'center'});
+    	"Pan device right and left,\nTap to create Rain!", {font: '36px', fill: 'white', align: 'center'});
         debug_text_visher.anchor.set(.5, .5);
         debug_text_visher.x = game.world.centerX;
 
@@ -75,16 +75,22 @@ visher.prototype = {
 function drawRipple(_xAxis, _yAxis){
     ripplesGroup = game.add.group();
 	    
-    ripple = ripplesGroup.create(_xAxis, _yAxis, 'light_web');
+    ripple = ripplesGroup.create(_xAxis, _yAxis, 'drop');
     ripple.anchor.setTo(0.5);
+    ripple.tint = colors[game.rnd.integerInRange(0, colors.length)]
+    ripple.alpha = game.rnd.integerInRange(0, 10) / 10;
 
 	game.physics.enable(ripple, Phaser.Physics.ARCADE);
-	ripple.body.gravity.y = duration / 12;
+	ripple.body.velocity.y = duration / 9;
 
-    game.add.tween(ripple.scale).to({x: duration / 400, y: duration / 400}, Math.cos(duration) * 16000, "Cubic", true);
+    game.add.tween(ripple.scale).to({x: duration / 350, y: duration / 350}, Math.cos(duration) * 16000, "Cubic", true);
     game.add.tween(ripple).to({alpha: 0}, Math.cos(duration) * 16000, "Cubic", true).onComplete.add(function(ripple){   
         ripple.destroy();  
     },this);
+    
+    if (debug_text_visher.alpha == 1){
+    	game.add.tween(debug_text_visher).to({alpha: 0}, 2000, "Cubic", true);
+    }
 }
 
 function readVisherAccel(event){
@@ -102,7 +108,7 @@ function readVisherAccel(event){
 		
 		try{
 		    ripplesGroup.forEach(function(item) {
-				item.body.gravity.x = -AccelX * 18;
+				item.body.velocity.x = -AccelX * 24;
 		    });
 		}catch(e){}
 	}
