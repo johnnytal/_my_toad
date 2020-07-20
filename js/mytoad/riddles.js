@@ -53,7 +53,7 @@ function levelUp(){
     riddleText.text = riddle_instructions[riddles_solved];
 
 	if (riddles_solved == 3){
-		setTimeout(function(){
+		riddleTimer = setTimeout(function(){
 			levelUp();
 		}, 5000);
     }

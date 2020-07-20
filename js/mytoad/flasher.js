@@ -189,10 +189,13 @@ function loadSounds(){
 	huSfx = game.add.audio('hu', 1);
 	haSfx = game.add.audio('ha', 1);
 
-	backSfx = game.add.audio('back');
-	frontSfx = game.add.audio('front');
-	cSfx = game.add.audio('c');
-	gSfx = game.add.audio('g');
+	shakerFsfx = game.add.audio('back', 1);
+	shakerBsfx = game.add.audio('front', 1);
+	bellFsfx = game.add.audio('c', 1);
+	bellBsfx = game.add.audio('g', 1);
+			
+	bellSounds = [bellFsfx, bellBsfx];
+	shakerSounds = [shakerFsfx, shakerBsfx];
 
     sfx1 = game.add.audio('bd', 1);
     sfx2 = game.add.audio('clanck', 1);
@@ -248,6 +251,14 @@ function goToState(_this){
 		if (window.plugins.flashlight.isSwitchedOn()){
 			window.plugins.flashlight.switchOff();
 		}
+	}
+	
+	if (game.state.getCurrentState().key == 'Shaker'){
+		gui.destroy();
+	}
+	
+	if (game.state.getCurrentState().key == 'Riddles'){
+		clearTimeout(riddleTimer);
 	}
 
 	state = _this.key.slice(4);

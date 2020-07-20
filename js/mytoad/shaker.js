@@ -1,26 +1,31 @@
 var shaker = function(game){
 	DEFAULT_COLOR = converToHex(colors[1]);
 	FRONT_COLOR = converToHex(colors[6]);
-	BACK_COLOR = converToHex(colors[4]);	
+	BACK_COLOR = converToHex(colors[0]);	
 
 	aveAccel = 0;
 	angle = 0;
 
 	lastAccel = 0;
 	lastAngle = 0;
-
-	MIN_ACCEL_F = 0.78; //0.8
-	MIN_ACCEL_B = 0.33; //0.35
-
-	MIN_ANGLE_F = 0.4; //0.35
-	MIN_ANGLE_B = 0.15; //0
 	
 	lastAction = '';
+
+	config = { // 0.8, 0.35, 0.35, 0
+		MIN_ACCEL_F: 0.8,
+		MIN_ACCEL_B: 0.35, 
+		MIN_ANGLE_F: 0.35, 
+		MIN_ANGLE_B: 0.01, 
+		VOL_FACTOR: false,
+		SOUND: null
+	};
 };
 
 shaker.prototype = {
     create: function(){  
     	initState(DEFAULT_COLOR);
+    	
+    	config.SOUND = bellSounds;
 
 		logo = game.add.image(0, 0, 'bigLogo');		       
         logo.anchor.set(.5, .5);
@@ -36,8 +41,23 @@ shaker.prototype = {
 		});} catch(e){}
 			
 		try{window.addEventListener('devicemotion', readAcc);} catch(e){}
+		
+		startGUI();
     }
 };
+
+function startGUI() {
+    gui = new dat.GUI({ width: 300 });
+    
+    gui.add(config, 'MIN_ACCEL_F', 0, 1.6).name('min accel fwd');
+    gui.add(config, 'MIN_ACCEL_B', 0, 0.7).name('min accel bck');
+    gui.add(config, 'MIN_ANGLE_F', 0, 0.7).name('min angle fwd');
+    gui.add(config, 'MIN_ANGLE_B', 0, 0.5).name('min angle bck');
+    gui.add(config, 'VOL_FACTOR').name('Volume factor');
+    //gui.add(config, 'SOUND', { 'Bells': bellSounds, 'Shaker': shakerSounds});
+
+    if (isMobile()) gui.close();
+}
 
 function readAcc(event){
 	if (game.state.getCurrentState().key == 'Shaker'){
@@ -47,11 +67,11 @@ function readAcc(event){
 			event.accelerationIncludingGravity.z
 		) / 3;
 	
-		if (!cSfx.isPlaying && !gSfx.isPlaying){
-			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
+		if (!config.SOUND[0].isPlaying && !config.SOUND[1].isPlaying){
+			if (Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_F && angle - lastAngle > config.MIN_ANGLE_F){ 
 				if (lastAction != 'FRONT'){
-					cSfx.volume = Math.abs(lastAccel - aveAccel);
-					cSfx.play();
+					if (config.VOL_FACTOR) config.SOUND[0].volume = Math.abs(lastAccel - aveAccel);
+					config.SOUND[0].play();
 					
 					flashShaker(FRONT_COLOR);
 					
@@ -59,10 +79,10 @@ function readAcc(event){
 				}
 			}
 			
-			else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
+			else if(Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_B && angle - lastAngle < config.MIN_ANGLE_B){	
 				if (lastAction != 'BACK'){
-					gSfx.volume = Math.abs(lastAccel - aveAccel);
-					gSfx.play();
+					if (config.VOL_FACTOR) config.SOUND[1].volume = Math.abs(lastAccel - aveAccel);
+					config.SOUND[1].play();
 					
 					flashShaker(BACK_COLOR);
 					
@@ -94,6 +114,6 @@ function flashShaker(_color){
 			window.plugins.flashlight.switchOff();
 		}
 		game.stage.backgroundColor = DEFAULT_COLOR;
-	}, 60);
+	}, 75);
 }
 
