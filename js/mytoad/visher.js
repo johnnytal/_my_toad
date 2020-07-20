@@ -19,6 +19,9 @@ visher.prototype = {
 		
 		bgHot.alpha = 0.5;
 		bgCold.alpha = 0.5;
+		
+    	game.input.addPointer();
+    	game.input.addPointer();
 
 		wiper = game.add.sprite(0, 0, 'bigLogo');
 		wiper.enableBody = true;

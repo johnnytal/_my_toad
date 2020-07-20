@@ -4,10 +4,13 @@ var shaker = function(game){
 	BACK_COLOR = converToHex(colors[0]);	
 
 	aveAccel = 0;
+	accelX = 0;
 	angle = 0;
 
 	lastAccel = 0;
 	lastAngle = 0;
+	
+	last_accelX = 0;
 	
 	lastAction = '';
 
@@ -61,11 +64,8 @@ function startGUI() {
 
 function readAcc(event){
 	if (game.state.getCurrentState().key == 'Shaker'){
-		var aveAccel = (
-			event.accelerationIncludingGravity.x + 
-			event.accelerationIncludingGravity.y +
-			event.accelerationIncludingGravity.z
-		) / 3;
+		var accelX = event.accelerationIncludingGravity.x;
+		var aveAccel = (event.accelerationIncludingGravity.x + event.accelerationIncludingGravity.z) / 2;
 	
 		if (!config.SOUND[0].isPlaying && !config.SOUND[1].isPlaying){
 			if (Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_F && angle - lastAngle > config.MIN_ANGLE_F){ 
@@ -76,10 +76,13 @@ function readAcc(event){
 					flashShaker(FRONT_COLOR);
 					
 					lastAction = 'FRONT';
+					
+					last_accelX = event.accelerationIncludingGravity.x;
 				}
 			}
 			
-			else if(Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_B && angle - lastAngle < config.MIN_ANGLE_B){	
+			else if(Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_B && angle - lastAngle < config.MIN_ANGLE_B
+			&& accelX > last_accelX + 0.7){	
 				if (lastAction != 'BACK'){
 					if (config.VOL_FACTOR) config.SOUND[1].volume = Math.abs(lastAccel - aveAccel);
 					config.SOUND[1].play();

@@ -68,11 +68,11 @@ function start_stream(stream){
 			 middleLogo.scale.set(1 - averageValue / 100, 1 - averageValue / 100);
 			 ascendLogos(largestFreq * (game.scale.width / 120), 160 + averageValue * (game.scale.height / 25));
 			 if (state == 1){
-			 	middleLogo.angle += largestValue / 200;
+			 	middleLogo.angle += largestValue / 180;
 			 }
 			 else if (state == 2){
-			 	 middleLogo.angle += largestValue / 200;
-			 	 middleLogo.scale.set(0.5 + averageValue / 20, 0.5 + averageValue / 20);
+			 	 middleLogo.angle += largestValue / 180;
+			 	 middleLogo.scale.set(0.6 + averageValue / 22, 0.6 + averageValue / 22);
 			 }
 			 
 	  	 	 lastAverageValue = averageValue;

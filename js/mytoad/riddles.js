@@ -19,7 +19,9 @@ riddles.prototype = {
     	  
 		initState(converToHex(colors[7]));
 
-        riddleText = game.add.text(250, 300, riddle_instructions[riddles_solved], {font: '32px', fill: 'black'});
+        riddleText = game.add.text(250, 250, riddle_instructions[riddles_solved], {font: '36px', fill: 'black'});
+        riddleText.anchor.set(.5, .5);
+        riddleText.x = game.world.centerX;
         
     	window.addEventListener("devicemotion", readRiddlesAccel, true);
     },
