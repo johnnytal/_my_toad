@@ -86,7 +86,7 @@ function webaudio_tooling_obj(){
 }
 
 function ascendLogos(StartX, startY){
-	logoAscend = game.add.sprite(StartX + 100, HEIGHT - startY, 'light_web');
+	logoAscend = game.add.sprite(StartX + 60, HEIGHT - startY, 'light_web');
 	logoAscend.scale.set(averageValue / 7, averageValue / 7);
 	logoAscend.tint = 0xffffff * (largestFreq / 100);
 	logoAscend.alpha = 1;

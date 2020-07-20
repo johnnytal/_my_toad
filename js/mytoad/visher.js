@@ -70,7 +70,7 @@ function drawRipple(_xAxis, _yAxis){
 	game.physics.enable(ripple, Phaser.Physics.ARCADE);
 	ripple.body.gravity.y = duration / 12;
 
-    game.add.tween(ripple.scale).to({x: duration / 500, y: duration / 500}, Math.cos(duration) * 16000, "Cubic", true);
+    game.add.tween(ripple.scale).to({x: duration / 400, y: duration / 400}, Math.cos(duration) * 16000, "Cubic", true);
     game.add.tween(ripple).to({alpha: 0}, Math.cos(duration) * 16000, "Cubic", true).onComplete.add(function(ripple){   
         ripple.destroy();  
     },this);
@@ -84,13 +84,14 @@ function readVisherAccel(event){
 		
 		var alphaVal = (AccelX + 10) / 20;
 		if (alphaVal < 0) alphaVal = 0;
+		else if (alphaVal > 1) alphaVal = 1;
 		
 		bgHot.alpha = alphaVal;
 		bgCold.alpha = 1 - alphaVal;
 		
 		try{
 		    ripplesGroup.forEach(function(item) {
-				item.body.gravity.x = AccelX * 18;
+				item.body.gravity.x = -AccelX * 18;
 		    });
 		}catch(e){}
 	}
