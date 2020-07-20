@@ -14,6 +14,8 @@ preloader.prototype = {
         
         game.load.image('gradientHot', 'assets/mytoad/images/color-gradient-background.jpg');
         game.load.image('gradientCold', 'assets/mytoad/images/color-gradient-background_cold.jpg');
+        game.load.image('fun', 'assets/mytoad/images/fun.png');
+        game.load.image('toad', 'assets/mytoad/images/toad.png');
         
         game.load.image('bg', 'assets/mytoad/images/bg.png');
         game.load.image('logoSprite', 'assets/mytoad/images/logoSprite.png');
@@ -25,7 +27,8 @@ preloader.prototype = {
         game.load.image('blue_sliderUp', 'assets/mytoad/images/blue_sliderUp.png');
         game.load.image('seperator', 'assets/mytoad/images/slider.png');
         
-        
+        game.load.image('btn_sampler', 'assets/mytoad/images/btn_sampler.png');
+
         game.load.image('syncVib', 'assets/mytoad/images/syncVib.png');
         game.load.image('flickerBtn', 'assets/mytoad/images/flickerBtn.png');
         
@@ -44,6 +47,9 @@ preloader.prototype = {
 
         game.load.audio('back', 'assets/mytoad/audio/back.mp3');
         game.load.audio('front', 'assets/mytoad/audio/front.mp3');
+        game.load.audio('g', 'assets/mytoad/audio/g.mp3');
+        game.load.audio('c', 'assets/mytoad/audio/c.mp3');
+        
         game.load.audio('hu', 'assets/mytoad/audio/hu.mp3');
         game.load.audio('ha', 'assets/mytoad/audio/ha.mp3');
         

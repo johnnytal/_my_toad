@@ -47,11 +47,11 @@ function readAcc(event){
 			event.accelerationIncludingGravity.z
 		) / 3;
 	
-		if (!frontSfx.isPlaying && !backSfx.isPlaying){
+		if (!cSfx.isPlaying && !gSfx.isPlaying){
 			if (Math.abs(lastAccel - aveAccel) > MIN_ACCEL_F && angle - lastAngle > MIN_ANGLE_F){ 
 				if (lastAction != 'FRONT'){
-					frontSfx.volume = Math.abs(lastAccel - aveAccel);
-					frontSfx.play();
+					cSfx.volume = Math.abs(lastAccel - aveAccel);
+					cSfx.play();
 					
 					flashShaker(FRONT_COLOR);
 					
@@ -61,8 +61,8 @@ function readAcc(event){
 			
 			else if(Math.abs(lastAccel - aveAccel) > MIN_ACCEL_B && angle - lastAngle < MIN_ANGLE_B){	
 				if (lastAction != 'BACK'){
-					backSfx.volume = Math.abs(lastAccel - aveAccel);
-					backSfx.play();
+					gSfx.volume = Math.abs(lastAccel - aveAccel);
+					gSfx.play();
 					
 					flashShaker(BACK_COLOR);
 					

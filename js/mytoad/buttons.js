@@ -11,9 +11,9 @@ buttons.prototype = {
     	game.input.addPointer();
     	game.input.addPointer();
 
-        mode_button = this.add.image(0, 0, 'cont');
+        mode_button = this.add.image(0, 55, 'cont');
+        mode_button.scale.set(.8, .8);
         mode_button.frame = 1;
-        mode_button.y = 60;
         mode_button.x = WIDTH - mode_button.width - 50;
         
         mode_button.inputEnabled = true;
@@ -35,7 +35,7 @@ function createSoundBtns(){
     soundBtnsGroup = game.add.physicsGroup(Phaser.Physics.ARCADE);
 	        
     for(b = 0; b < SOUND_BUTTONS_N; b++){
-    	soundButtons[b] = soundBtnsGroup.create(70 + (200 * (b%3)), 200 + (Math.floor(b/3) * 200), 'logo');
+    	soundButtons[b] = soundBtnsGroup.create(70 + (200 * (b%3)), 200 + (Math.floor(b/3) * 200), 'btn_sampler');
     	soundButtons[b].inputEnabled = true;
 
 		soundButtons[b].events.onInputDown.add(playSound, this);
@@ -54,6 +54,7 @@ function playSound(item, kb){
     navigator.vibrate(75);   
 
     sprite.tint = colors[place];
+    sprite.scale.set(.97, .97);
     
 	if (timeOuts[place] != null){
 		clearTimeout(timeOuts[place]);
@@ -61,6 +62,7 @@ function playSound(item, kb){
     
 	timeOuts[place] = setTimeout(function(){
     	 sprite.tint = 0xffffff;
+    	 sprite.scale.set(1, 1);
     }, sound.durationMS);  
 }
 
@@ -73,6 +75,7 @@ function stopSounds(item){
     	if (sound.isPlaying){
 	        sound.stop();
 	        sprite.tint = 0xffffff;
+	        sprite.scale.set(1, 1);
         }  
     }   
 }

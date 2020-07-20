@@ -191,6 +191,8 @@ function loadSounds(){
 
 	backSfx = game.add.audio('back');
 	frontSfx = game.add.audio('front');
+	cSfx = game.add.audio('c');
+	gSfx = game.add.audio('g');
 
     sfx1 = game.add.audio('bd', 1);
     sfx2 = game.add.audio('clanck', 1);
