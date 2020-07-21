@@ -80,7 +80,7 @@ function drawRipple(_xAxis, _yAxis){
 	    
     ripple = ripplesGroup.create(_xAxis, _yAxis, 'drop');
     ripple.anchor.setTo(0.5);
-    ripple.tint = colors[game.rnd.integerInRange(0, colors.length)]
+    ripple.tint = colors[game.rnd.integerInRange(0, colors.length-1)];
     ripple.alpha = game.rnd.integerInRange(0, 10) / 10;
 
 	game.physics.enable(ripple, Phaser.Physics.ARCADE);
@@ -112,6 +112,7 @@ function readVisherAccel(event){
 		try{
 		    ripplesGroup.forEach(function(item) {
 				item.body.velocity.x = -AccelX * 24;
+				item.angle = -AccelX * 18;
 		    });
 		}catch(e){}
 	}

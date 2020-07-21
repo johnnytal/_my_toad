@@ -11,13 +11,16 @@ var riddles = function(game){
 		"Volume up",
 		"4 fingers"
 	];
+	
+	rndBck = 0;
 };
 
 riddles.prototype = {
     create: function(){    
     	riddles_solved = 0;
-    	  
-		initState(converToHex(colors[7]));
+    	
+    	rndBck = game.rnd.integerInRange(0, colors.length-1);
+		initState(converToHex(colors[rndBck]));
 
         riddleText = game.add.text(250, 250, riddle_instructions[riddles_solved], {font: '36px', fill: 'black'});
         riddleText.anchor.set(.5, .5);
@@ -53,6 +56,9 @@ function levelUp(){
 	
 	riddles_solved++;
     riddleText.text = riddle_instructions[riddles_solved];
+    
+    rndBck = (rndBck + 1) % 11; 
+    game.stage.backgroundColor = converToHex(colors[rndBck]);
 
 	if (riddles_solved == 3){
 		riddleTimer = setTimeout(function(){

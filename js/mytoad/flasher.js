@@ -13,6 +13,16 @@ var flasher = function(game){
 	syncing_vib = false;
 	
 	flicker_interval = null;
+	
+	chosenPattern = null;
+	patternNote = 0;
+	
+	patterns = [
+		pattern1 = [500, 500, 250, 250, 500, 250, 250, 250, 500, 250, 500],
+		pattern2 = [300, 900, 300, 900, 300, 300, 300, 300, 300, 900, 150, 150,
+		 900, 150, 150, 300, 600, 150, 150, 300, 300, 300, 300, 900],
+		pattern3 = [200, 600, 200, 600, 200, 200, 200, 200, 200, 600]
+	];
 };
 
 flasher.prototype = {
@@ -20,6 +30,16 @@ flasher.prototype = {
     	initState(converToHex(colors[6]));
     	
     	game.add.image(0,  HEIGHT / 2 + 35, 'seperator').scale.set(4, 2);
+    	
+    	patternBtns = game.add.group();
+    	
+    	for(x = 0; x < 3; x++){
+    		btnPattern = patternBtns.create(327 + x * 132, 50, 'logo');
+    		btnPattern.scale.set(.67, .67);
+	    	btnPattern.name = x;
+		    btnPattern.inputEnabled = true;
+	    	btnPattern.events.onInputDown.add(changePattern, this);	
+		}
 		
 		btn_light = game.add.sprite(400, 310, 'lightBtn');
 	    btn_light.inputEnabled = true;
@@ -191,6 +211,46 @@ function resetFlickerTimer(){
 	}
 }
 
+function changePattern(_this){	
+    patternBtns.forEach(function(item) {
+		item.tint = 0xffffff;
+    });
+    
+    _this.tint = CHOSEN_TINT;
+    
+	if (window.plugins.flashlight.isSwitchedOn()){
+		window.plugins.flashlight.switchOff();
+	}
+	navigator.vibrate(0);
+    resetFlickerTimer();
+    
+    chosenPattern = patterns[_this.name];
+	playPattern();
+}
+
+function playPattern(){
+	if (patternNote < chosenPattern.length){
+		vibrate(chosenPattern[patternNote]);
+		window.plugins.flashlight.switchOn();
+			
+			
+		setTimeout(function(){
+			window.plugins.flashlight.switchOff();
+			
+			setTimeout(function(){
+				patternNote++;
+				playPattern();
+			}, chosenPattern[patternNote] / 2);
+	
+		}, chosenPattern[patternNote] / 2);
+	}
+	
+	else{
+	    patternBtns.forEach(function(item) {
+			item.tint = 0xffffff;
+	    });	
+	}
+}
 
 /* general functions */
 

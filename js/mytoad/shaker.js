@@ -15,10 +15,10 @@ var shaker = function(game){
 	lastAction = '';
 
 	config = { // 0.8, 0.35, 0.35, 0
-		MIN_ACCEL_F: 0.8,
-		MIN_ACCEL_B: 0.35, 
-		MIN_ANGLE_F: 0.35, 
-		MIN_ANGLE_B: 0.01, 
+		MIN_ACCEL_F: 0.75,
+		MIN_ACCEL_B: 0.4, 
+		MIN_ANGLE_F: 0.4, 
+		MIN_ANGLE_B: 0.1, 
 		VOL_FACTOR: false,
 		SOUND: null
 	};
@@ -52,7 +52,7 @@ shaker.prototype = {
 function startGUI() {
     gui = new dat.GUI({ width: 300 });
     
-    gui.add(config, 'MIN_ACCEL_F', 0, 1.6).name('min accel fwd');
+    gui.add(config, 'MIN_ACCEL_F', 0, 1.5).name('min accel fwd');
     gui.add(config, 'MIN_ACCEL_B', 0, 0.7).name('min accel bck');
     gui.add(config, 'MIN_ANGLE_F', 0, 0.7).name('min angle fwd');
     gui.add(config, 'MIN_ANGLE_B', 0, 0.5).name('min angle bck');
@@ -68,7 +68,8 @@ function readAcc(event){
 		var aveAccel = (event.accelerationIncludingGravity.x + event.accelerationIncludingGravity.z) / 2;
 	
 		if (!config.SOUND[0].isPlaying && !config.SOUND[1].isPlaying){
-			if (Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_F && angle - lastAngle > config.MIN_ANGLE_F){ 
+			if (Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_F && angle - lastAngle > config.MIN_ANGLE_F
+			&& accelX < last_accelX - 0.8){ 
 				if (lastAction != 'FRONT'){
 					if (config.VOL_FACTOR) config.SOUND[0].volume = Math.abs(lastAccel - aveAccel);
 					config.SOUND[0].play();
@@ -82,7 +83,7 @@ function readAcc(event){
 			}
 			
 			else if(Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_B && angle - lastAngle < config.MIN_ANGLE_B
-			&& accelX > last_accelX + 0.7){	
+			&& accelX > last_accelX + 0.8){	
 				if (lastAction != 'BACK'){
 					if (config.VOL_FACTOR) config.SOUND[1].volume = Math.abs(lastAccel - aveAccel);
 					config.SOUND[1].play();
