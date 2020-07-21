@@ -67,17 +67,17 @@ function levelUp(){
     }
     
     if (riddles_solved == 4){
-    	var last_lum = null;
+    	var first_lum = null;
 	    
 	    window.plugin.lightsensor.watchReadings(function success(reading){
         	var luminosity = parseInt(reading.intensity);
         	
-        	if (last_lum != null && luminosity > last_lum + 1000){
+        	if (first_lum == null) first_lum = luminosity;
+        	
+        	if (luminosity > first_lum + 1000){
         		levelUp();
      			window.plugin.lightsensor.stop();
-        	}
-        	
-        	last_lum = luminosity;
+        	}	
      	});
     }
 }

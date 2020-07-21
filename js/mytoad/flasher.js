@@ -34,7 +34,7 @@ flasher.prototype = {
     	patternBtns = game.add.group();
     	
     	for(x = 0; x < 3; x++){
-    		btnPattern = patternBtns.create(327 + x * 132, 50, 'btn_pattern');
+    		btnPattern = patternBtns.create(335 + x * 132, 25, 'btn_pattern');
     		btnPattern.scale.set(.67, .67);
 	    	btnPattern.name = x;
 		    btnPattern.inputEnabled = true;
@@ -50,7 +50,7 @@ flasher.prototype = {
 	    btn_light.inputEnabled = true;
 	    btn_light.events.onInputDown.add(flash, this);
 		    
-		btn_vibrate = game.add.sprite(400, 750, 'vibrateBtn');
+		btn_vibrate = game.add.sprite(400, 730, 'vibrateBtn');
 		btn_vibrate.inputEnabled = true;
 		btn_vibrate.events.onInputDown.add(vibrator, this);
 		btn_vibrate.events.onInputUp.add(function(){
@@ -223,6 +223,8 @@ function changePattern(_this){
     });
     
     _this.tint = CHOSEN_TINT;
+
+    click2.play();
     
 	if (window.plugins.flashlight.isSwitchedOn()){
 		window.plugins.flashlight.switchOff();
@@ -232,7 +234,7 @@ function changePattern(_this){
     
     chosenPattern = patterns[_this.name];
     patternNote = 0;
-    
+
 	playPattern();
 }
 
