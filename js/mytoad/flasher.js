@@ -274,8 +274,8 @@ function loadSounds(){
 	huSfx = game.add.audio('hu', 1);
 	haSfx = game.add.audio('ha', 1);
 
-	shakerFsfx = game.add.audio('back', 1);
-	shakerBsfx = game.add.audio('front', 1);
+	shakerFsfx = game.add.audio('front', 1);
+	shakerBsfx = game.add.audio('back', 1);
 	bellFsfx = game.add.audio('c', 1);
 	bellBsfx = game.add.audio('g', 1);
 	
@@ -328,7 +328,6 @@ function initState(_color){
     	
         btn.inputEnabled = true;
 	    btn.events.onInputDown.add(goToState, this);
-	    click4.play();
 	    
 	    if (btn_keys[n].slice(4) == state){
 	    	btn.tint = CHOSEN_TINT;
@@ -338,7 +337,9 @@ function initState(_color){
 	game.add.image(0,  HEIGHT - btn.height - 160, 'seperator').scale.set(4, 1.5);
 }
 
-function goToState(_this){
+function goToState(_this){    
+    click4.play();
+    
 	if (isMobile()){
 		navigator.vibrate(0);
 
