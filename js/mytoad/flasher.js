@@ -230,10 +230,9 @@ function changePattern(_this){
 
 function playPattern(){
 	if (patternNote < chosenPattern.length){
-		vibrate(chosenPattern[patternNote]);
+		navigator.vibrate(chosenPattern[patternNote]);
 		window.plugins.flashlight.switchOn();
-			
-			
+
 		setTimeout(function(){
 			window.plugins.flashlight.switchOff();
 			

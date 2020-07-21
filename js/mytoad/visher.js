@@ -112,7 +112,7 @@ function readVisherAccel(event){
 		try{
 		    ripplesGroup.forEach(function(item) {
 				item.body.velocity.x = -AccelX * 24;
-				item.angle = -AccelX * 18;
+				item.angle = AccelX * 12;
 		    });
 		}catch(e){}
 	}

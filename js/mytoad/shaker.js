@@ -91,6 +91,8 @@ function readAcc(event){
 					flashShaker(BACK_COLOR);
 					
 					lastAction = 'BACK';
+					
+					last_accelX = event.accelerationIncludingGravity.x;
 				}
 			}
 		}
