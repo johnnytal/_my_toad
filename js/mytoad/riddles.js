@@ -67,12 +67,12 @@ function levelUp(){
     }
     
     if (riddles_solved == 4){
-    	var last_lum = 0;
+    	var last_lum = null;
 	    
 	    window.plugin.lightsensor.watchReadings(function success(reading){
         	var luminosity = parseInt(reading.intensity);
         	
-        	if (luminosity > last_lum + 1000){
+        	if (last_lum != null && luminosity > last_lum + 1000){
         		levelUp();
      			window.plugin.lightsensor.stop();
         	}

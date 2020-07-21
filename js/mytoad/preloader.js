@@ -29,6 +29,7 @@ preloader.prototype = {
         game.load.image('seperator', 'assets/mytoad/images/slider.png');
         
         game.load.image('btn_sampler', 'assets/mytoad/images/btn_sampler.png');
+        game.load.image('btn_pattern', 'assets/mytoad/images/patternBtn.png');
 
         game.load.image('syncVib', 'assets/mytoad/images/syncVib.png');
         game.load.image('flickerBtn', 'assets/mytoad/images/flickerBtn.png');

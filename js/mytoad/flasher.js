@@ -34,11 +34,16 @@ flasher.prototype = {
     	patternBtns = game.add.group();
     	
     	for(x = 0; x < 3; x++){
-    		btnPattern = patternBtns.create(327 + x * 132, 50, 'logo');
+    		btnPattern = patternBtns.create(327 + x * 132, 50, 'btn_pattern');
     		btnPattern.scale.set(.67, .67);
 	    	btnPattern.name = x;
 		    btnPattern.inputEnabled = true;
 	    	btnPattern.events.onInputDown.add(changePattern, this);	
+	    	
+	        var btn_text = game.add.text(0, 0, btnPattern.name + 1, {font: '38px', fill: 'white'});
+	        btn_text.anchor.set(.5, .5);
+	        btn_text.x = btnPattern.x + btnPattern.width / 2;
+	        btn_text.y = btnPattern.y + btnPattern.height / 2 + 2;
 		}
 		
 		btn_light = game.add.sprite(400, 310, 'lightBtn');
@@ -242,9 +247,9 @@ function playPattern(){
 			setTimeout(function(){
 				patternNote++;
 				playPattern();
-			}, chosenPattern[patternNote]);
+			}, chosenPattern[patternNote] / 1.5);
 	
-		}, chosenPattern[patternNote]);
+		}, chosenPattern[patternNote] / 1.5);
 	}
 	
 	else{
