@@ -35,6 +35,7 @@
 		<plugin name="cordova-plugin-flashlight" spec="*"/>
 		<plugin name="cordova-plugin-extension" spec="*"/>
 		<plugin name="cordova-plugin-whitelist" version="1"/>
+		<plugin name="cordova-plugin-lightsensor" spec="*"/>
 		<plugin name="cordova-plugin-android-volume" spec="*"/>
 		<plugin name="cordova-plugin-vibration" spec="*"/>
 		<plugin name="cordova-plugin-device-motion" spec="*"/>
