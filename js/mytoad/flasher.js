@@ -165,6 +165,7 @@ function start_flicking(){
 			else{
 				window.plugins.flashlight.switchOn();
 				if (syncing_vib) navigator.vibrate(flickingRate);
+				game.camera.flash(0xffffff, flickingRate);
 			}
 		}, flickingRate);
 	}
@@ -225,6 +226,8 @@ function changePattern(_this){
     resetFlickerTimer();
     
     chosenPattern = patterns[_this.name];
+    patternNote = 0;
+    
 	playPattern();
 }
 
@@ -239,9 +242,9 @@ function playPattern(){
 			setTimeout(function(){
 				patternNote++;
 				playPattern();
-			}, chosenPattern[patternNote] / 2);
+			}, chosenPattern[patternNote]);
 	
-		}, chosenPattern[patternNote] / 2);
+		}, chosenPattern[patternNote]);
 	}
 	
 	else{

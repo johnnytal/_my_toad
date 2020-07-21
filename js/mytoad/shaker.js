@@ -69,7 +69,7 @@ function readAcc(event){
 	
 		if (!config.SOUND[0].isPlaying && !config.SOUND[1].isPlaying){
 			if (Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_F && angle - lastAngle > config.MIN_ANGLE_F
-			&& accelX < last_accelX - 0.8){ 
+			&& accelX < last_accelX - 0.9){ 
 				if (lastAction != 'FRONT'){
 					if (config.VOL_FACTOR) config.SOUND[0].volume = Math.abs(lastAccel - aveAccel);
 					config.SOUND[0].play();
@@ -83,7 +83,7 @@ function readAcc(event){
 			}
 			
 			else if(Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_B && angle - lastAngle < config.MIN_ANGLE_B
-			&& accelX > last_accelX + 0.8){	
+			&& accelX > last_accelX + 0.9){	
 				if (lastAction != 'BACK'){
 					if (config.VOL_FACTOR) config.SOUND[1].volume = Math.abs(lastAccel - aveAccel);
 					config.SOUND[1].play();

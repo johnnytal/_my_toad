@@ -6,7 +6,7 @@ var riddles = function(game){
 		"Tap the toad", 
 		"Tilt Left",
 		"Don't tap anywhere",
-		"Turn off the lights",
+		"Turn on the lights",
 		"PLACEHOLDER",
 		"Volume up",
 		"4 fingers"
@@ -67,12 +67,17 @@ function levelUp(){
     }
     
     if (riddles_solved == 4){
+    	var last_lum = 0;
+	    
 	    window.plugin.lightsensor.watchReadings(function success(reading){
-        	luminosity = parseInt(reading.intensity);
-        	if (luminosity == 0){
+        	var luminosity = parseInt(reading.intensity);
+        	
+        	if (luminosity > last_lum + 1000){
         		levelUp();
      			window.plugin.lightsensor.stop();
         	}
+        	
+        	last_lum = luminosity;
      	});
     }
 }
