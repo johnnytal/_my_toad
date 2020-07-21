@@ -1,7 +1,7 @@
 var flasher = function(game){
 	btn_keys = ['btn_Flasher', 'btn_Visualizer', 'btn_Buttons', 'btn_Shaker', 'btn_Visher', 'btn_Riddles'];
 	CHOSEN_TINT = colors[1];
-	state = btn_keys[0].slice(4);
+	state = null;
 	
 	flash_on = false;
 	flicker_on = false;
@@ -26,7 +26,9 @@ var flasher = function(game){
 };
 
 flasher.prototype = {
-    create: function(){  
+    create: function(){ 
+    	state = btn_keys[0].slice(4); 
+    	
     	initState(converToHex(colors[6]));
     	
     	game.add.image(0,  HEIGHT / 2 + 35, 'seperator').scale.set(4, 2);
@@ -86,6 +88,10 @@ flasher.prototype = {
 		btn_ms_down.events.onInputUp.add(function(){
 			btn_ms_down.tint = 0xffffff;
 		}, this);	
+		
+		    
+    	btn_keys[0].slice(4).tint = CHOSEN_TINT;
+	    
     }
 };
 
@@ -224,8 +230,6 @@ function changePattern(_this){
     
     _this.tint = CHOSEN_TINT;
 
-    //click2.play();
-    
 	if (window.plugins.flashlight.isSwitchedOn()){
 		window.plugins.flashlight.switchOff();
 	}
@@ -240,9 +244,12 @@ function changePattern(_this){
 
 function playPattern(){
 	if (patternNote < chosenPattern.length){
+		
 		navigator.vibrate(chosenPattern[patternNote]);
 		window.plugins.flashlight.switchOn();
-
+		
+		game.camera.flash(0xffffff, chosenPattern[patternNote] / 1.5);
+		
 		setTimeout(function(){
 			window.plugins.flashlight.switchOff();
 			
@@ -271,13 +278,11 @@ function loadSounds(){
 	shakerBsfx = game.add.audio('front', 1);
 	bellFsfx = game.add.audio('c', 1);
 	bellBsfx = game.add.audio('g', 1);
-			
-	bellSounds = [bellFsfx, bellBsfx];
-	shakerSounds = [shakerFsfx, shakerBsfx];
 	
     click1 = game.add.audio('clanck', 0.2);
     click2 = game.add.audio('clap', 0.2);
     click3 = game.add.audio('scrape', 0.2);
+    click4 = game.add.audio('snap', 0.2);
 
     sfx1 = game.add.audio('bd', 1);
     sfx2 = game.add.audio('clanck', 1);
@@ -323,14 +328,14 @@ function initState(_color){
     	
         btn.inputEnabled = true;
 	    btn.events.onInputDown.add(goToState, this);
- 
+	    click4.play();
+	    
 	    if (btn_keys[n].slice(4) == state){
 	    	btn.tint = CHOSEN_TINT;
 	    }
     }
     
-    	game.add.image(0,  HEIGHT - btn.height - 160, 'seperator').scale.set(4, 1.5);
-
+	game.add.image(0,  HEIGHT - btn.height - 160, 'seperator').scale.set(4, 1.5);
 }
 
 function goToState(_this){

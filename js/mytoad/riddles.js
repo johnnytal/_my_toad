@@ -8,8 +8,8 @@ var riddles = function(game){
 		"Don't tap anywhere",
 		"Turn on the lights",
 		"Three fingers",
-		"PLACEHOLDER",
-		"Volume up"
+		"Upside Down",
+		"You Win!"
 	];
 	
 	rndBck = 0;
@@ -25,7 +25,7 @@ riddles.prototype = {
         riddleText = game.add.text(250, 250, riddle_instructions[riddles_solved], {font: '36px', fill: 'black'});
         riddleText.anchor.set(.5, .5);
         riddleText.x = game.world.centerX;
-        
+
     	window.addEventListener("devicemotion", readRiddlesAccel, true);
     },
     
@@ -42,6 +42,9 @@ riddles.prototype = {
 function readRiddlesAccel(){
 	if (game.state.getCurrentState().key == 'Riddles'){
 		if (riddles_solved == 2 && event.accelerationIncludingGravity.x > 9){
+			levelUp();
+		}
+		else if (riddles_solved == 6 && event.accelerationIncludingGravity.y < -8){
 			levelUp();
 		}
 	}
@@ -69,7 +72,7 @@ function levelUp(){
 		}, 5000);
     }
     
-    if (riddles_solved == 4){
+    else if (riddles_solved == 4){
     	var first_lum = -1;
     	var luminosity = -1;
 	    
@@ -85,9 +88,17 @@ function levelUp(){
      	});
     }
     
-    if (riddles_solved == 5){
+    else if (riddles_solved == 5){
 	    game.input.addPointer();
 	    game.input.addPointer();
 	    game.input.addPointer();
     }
+    
+    else if (riddles_solved == 6){
+		riddleText.angle = 180;
+    }
+    
+    else if (riddles_solved == 7){
+		riddleText.angle = 0;
+    }  
 }

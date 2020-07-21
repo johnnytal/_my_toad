@@ -20,7 +20,7 @@ var shaker = function(game){
 		MIN_ANGLE_F: 0.4, 
 		MIN_ANGLE_B: 0.1, 
 		VOL_FACTOR: false,
-		SOUND: null
+		SHAKER_SOUND: false
 	};
 };
 
@@ -28,7 +28,7 @@ shaker.prototype = {
     create: function(){  
     	initState(DEFAULT_COLOR);
     	
-    	config.SOUND = bellSounds;
+		shakingSounds = [bellFsfx, bellBsfx];
 
 		logo = game.add.image(0, 0, 'bigLogo');		       
         logo.anchor.set(.5, .5);
@@ -57,7 +57,7 @@ function startGUI() {
     gui.add(config, 'MIN_ANGLE_F', 0, 0.7).name('min angle fwd');
     gui.add(config, 'MIN_ANGLE_B', 0, 0.5).name('min angle bck');
     gui.add(config, 'VOL_FACTOR').name('Volume factor');
-    //gui.add(config, 'SOUND').name('Volume factor').onFinishChange(updateKeywords);
+    gui.add(config, 'SHAKER_SOUND').name('Shaker sound').onFinishChange(changeShakeSound);
 
    // if (isMobile()) gui.close();
 }
@@ -67,12 +67,12 @@ function readAcc(event){
 		var accelX = event.accelerationIncludingGravity.x;
 		var aveAccel = (event.accelerationIncludingGravity.x + event.accelerationIncludingGravity.z) / 2;
 	
-		if (!config.SOUND[0].isPlaying && !config.SOUND[1].isPlaying){
+		if (!shakingSounds[0].isPlaying && !shakingSounds[1].isPlaying){
 			if (Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_F && angle - lastAngle > config.MIN_ANGLE_F
 			&& accelX < last_accelX - 1){ 
 				if (lastAction != 'FRONT'){
-					if (config.VOL_FACTOR) config.SOUND[0].volume = Math.abs(lastAccel - aveAccel);
-					config.SOUND[0].play();
+					if (config.VOL_FACTOR) shakingSounds[0].volume = Math.abs(lastAccel - aveAccel);
+					shakingSounds[0].play();
 					
 					flashShaker(FRONT_COLOR);
 					
@@ -85,8 +85,8 @@ function readAcc(event){
 			else if(Math.abs(lastAccel - aveAccel) > config.MIN_ACCEL_B && angle - lastAngle < config.MIN_ANGLE_B
 			&& accelX > last_accelX + 1){	
 				if (lastAction != 'BACK'){
-					if (config.VOL_FACTOR) config.SOUND[1].volume = Math.abs(lastAccel - aveAccel);
-					config.SOUND[1].play();
+					if (config.VOL_FACTOR) shakingSounds[1].volume = Math.abs(lastAccel - aveAccel);
+					shakingSounds[1].play();
 					
 					flashShaker(BACK_COLOR);
 					
@@ -101,6 +101,15 @@ function readAcc(event){
 		
 		lastAngle = angle;
 		lastAccel = aveAccel;
+	}
+}
+
+function changeShakeSound(){
+	if (!config.SHAKER_SOUND){
+		shakingSounds = [bellFsfx, bellBsfx];
+	}		
+	else{
+		shakingSounds = [shakerFsfx, shakerBsfx];
 	}
 }
 
