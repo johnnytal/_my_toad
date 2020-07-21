@@ -224,7 +224,7 @@ function changePattern(_this){
     
     _this.tint = CHOSEN_TINT;
 
-    click2.play();
+    //click2.play();
     
 	if (window.plugins.flashlight.isSwitchedOn()){
 		window.plugins.flashlight.switchOff();

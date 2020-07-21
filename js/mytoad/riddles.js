@@ -7,9 +7,9 @@ var riddles = function(game){
 		"Tilt Left",
 		"Don't tap anywhere",
 		"Turn on the lights",
+		"Three fingers",
 		"PLACEHOLDER",
-		"Volume up",
-		"4 fingers"
+		"Volume up"
 	];
 	
 	rndBck = 0;
@@ -33,6 +33,9 @@ riddles.prototype = {
         if (riddles_solved == 0 && game.input.activePointer.isDown){
             levelUp();
         }
+	    if (riddles_solved == 5 && game.input.pointer1.isDown && game.input.pointer2.isDown && game.input.pointer3.isDown){
+			levelUp();
+	    }
     }
 };
 
@@ -67,17 +70,24 @@ function levelUp(){
     }
     
     if (riddles_solved == 4){
-    	var first_lum = null;
+    	var first_lum = -1;
+    	var luminosity = -1;
 	    
 	    window.plugin.lightsensor.watchReadings(function success(reading){
-        	var luminosity = parseInt(reading.intensity);
+        	luminosity = parseInt(reading.intensity);
         	
-        	if (first_lum == null) first_lum = luminosity;
+        	if (first_lum < 0) first_lum = luminosity;
         	
-        	if (luminosity > first_lum + 1000){
+        	if (first_lum > -1 && luminosity > first_lum + 1000){
         		levelUp();
      			window.plugin.lightsensor.stop();
         	}	
      	});
+    }
+    
+    if (riddles_solved == 5){
+	    game.input.addPointer();
+	    game.input.addPointer();
+	    game.input.addPointer();
     }
 }
