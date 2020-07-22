@@ -28,6 +28,7 @@ var flasher = function(game){
 flasher.prototype = {
     create: function(){ 
     	state = btn_keys[0].slice(4); 
+    	sound_logo.play();
     	
     	initState(converToHex(colors[6]));
     	
@@ -271,6 +272,8 @@ function playPattern(){
 /* general functions */
 
 function loadSounds(){   
+	sound_logo = game.add.audio('sound_logo');
+	
 	huSfx = game.add.audio('hu', 1);
 	haSfx = game.add.audio('ha', 1);
 
@@ -377,7 +380,7 @@ function isMobile(){
 function initPlugIns(){
     try{window.plugins.insomnia.keepAwake();} catch(e){} // keep device awake
     try{StatusBar.hide();} catch(e){} // hide status bar
-    try{window.androidVolume.setMusic(40, false);} catch(e){} // change device media volume to maximum
+    try{window.androidVolume.setMusic(50, false);} catch(e){} // change device media volume to maximum
 }
 
 function roundIt(_num){

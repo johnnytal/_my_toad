@@ -100,5 +100,6 @@ function levelUp(){
     
     else if (riddles_solved == 7){
 		riddleText.angle = 0;
+		sound_logo.play();
     }  
 }

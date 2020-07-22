@@ -131,4 +131,3 @@ function flashShaker(_color){
 		game.stage.backgroundColor = DEFAULT_COLOR;
 	}, 75);
 }
-

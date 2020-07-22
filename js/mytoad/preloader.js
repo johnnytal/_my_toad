@@ -22,7 +22,7 @@ preloader.prototype = {
         game.load.image('logo', 'assets/mytoad/images/logo.png');
         game.load.image('bigLogo', 'assets/mytoad/images/bigLogo.png');
         game.load.image('light_web', 'assets/mytoad/images/light_web.png');
-        game.load.image('drop', 'assets/mytoad/images/raemi-Drop.png');
+        game.load.image('drop', 'assets/mytoad/images/drop.png');
         
         game.load.image('blue_sliderDown', 'assets/mytoad/images/blue_sliderDown.png');
         game.load.image('blue_sliderUp', 'assets/mytoad/images/blue_sliderUp.png');
@@ -68,6 +68,8 @@ preloader.prototype = {
         game.load.audio('hu', 'assets/mytoad/audio/hu.mp3');
         game.load.audio('ha', 'assets/mytoad/audio/ha.mp3');
         
+        game.load.audio('sound_logo', 'assets/mytoad/audio/sound_logo.mp3');
+        
         game.load.spritesheet("cont", "assets/mytoad/images/cont.png", 325/2, 102);
         game.load.spritesheet("noteBtn", "assets/mytoad/images/note.png", 325/2, 102);
     },
@@ -75,6 +77,7 @@ preloader.prototype = {
     create: function(){
     	loadSounds();
     	initPlugIns();
+    	
         this.game.state.start("Flasher"); 
     }
 };
